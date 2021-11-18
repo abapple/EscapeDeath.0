@@ -82,7 +82,7 @@ public class PuzzleStarters {
         if (number == 10)
             number = 15;
         
-        // recRoom(number, hintCnt);
+        recRoom(number, hintCnt);
         library_morse(hintCnt);
         library_books(hintCnt);
 
