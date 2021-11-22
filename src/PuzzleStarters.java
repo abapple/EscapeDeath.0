@@ -81,16 +81,79 @@ public class PuzzleStarters {
         int number = 1 + (int) (Math.random() * ((20 - 1) + 1));
         if (number == 10)
             number = 15;
-        
+
         recRoom(number, hintCnt);
         library_morse(hintCnt);
         library_books(hintCnt);
+        gameRoom(hintCnt);
 
     }
 
+    public static void gameRoom(int hintCnt) {
+        // buttons on which game to play
+
+        int coins = 0;
+
+        System.out.println("In this room, you have multiple games to play!" + 
+        "\n To play each game, enter corresponding input: " + 
+        "\n Cup Game : CG" + 
+        "\n Black Jack : BJ" + 
+        "\n Mystery Game : ???" + 
+        "\n Slot Machine : SM");
+        Scanner scan = new Scanner(System.in);
+        String userInput = scan.nextLine();
+        if (userInput.equalsIgnoreCase("CG")) {
+            coins += cupGame(hintCnt);
+        }
+        if (userInput.equalsIgnoreCase("BJ")) {
+            coins += blackJack(hintCnt);
+        }
+        if (userInput.equalsIgnoreCase("???")) {
+            coins += mysteryGame(hintCnt);
+        }
+        if (userInput.equalsIgnoreCase("SM")) {
+            if (coins == 3) {
+               slotMachine(hintCnt, coins);
+            } else {
+                System.out.println("You can't afford to play this yet.");
+            }
+        }
+    }
+    public static int cupGame(int hintCnt)
+    {
+        // Have 4 cups, and a ball that randomly equals the position of one of them. 
+        // If the user types in the correct input then they find the ball and receive a coin
+        // If they put in the wrong input, they must try again
+        while(true){
+           for(int m = 0; m < 4; m++) 
+           {
+               
+           }
+        }
+        return 0;
+    }
+    public static int blackJack(int hintCnt)
+    {
+        //hashmap<cardValue, card> 
+        HashMap<Integer, String[]> deck = new HashMap();
+        // deck.put(10, {King} );
+        
+        
+        return 0;
+    }
+    public static int mysteryGame(int hintCnt)
+    {
+        // the answer will have to be related to the theme
+        return 0;
+    }
+    public static void slotMachine(int hintCnt, int coins)
+    {
+        
+    }
+
     public static void library_morse(int hintCnt) {
-        System.out.println("You see a dusty record player on a table in the middle of the library. "+
-        "\n As you approach, it begins to play an odd series of beeps and blips...\n");
+        System.out.println("You see a dusty record player on a table in the middle of the library. "
+                + "\n As you approach, it begins to play an odd series of beeps and blips...\n");
         play(5);
         try {
             Thread.sleep(5000);
@@ -98,34 +161,33 @@ public class PuzzleStarters {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        System.out.println("A paper peeks from beneath the record player. \n You pull it out to reveal " + 
-        "the international morse code alphabet");
+        System.out.println("A paper peeks from beneath the record player. \n You pull it out to reveal "
+                + "the international morse code alphabet");
         Scanner sc = new Scanner(System.in);
         String answer = "Mystery";
-        while (true) { 
+        while (true) {
             System.out.println("Translate the morse code and enter your guess");
             System.out.println("If you would like to play the sound again, press P");
             String input = sc.nextLine();
-            if(input.equalsIgnoreCase("p")){
+            if (input.equalsIgnoreCase("p")) {
                 play(1);
-            }else if(input.equalsIgnoreCase("hint")){
+            } else if (input.equalsIgnoreCase("hint")) {
                 hintCnt = giveHint("Morse", hintCnt);
                 System.out.println("Are you dumb?");
-    
-            }else if(input.equalsIgnoreCase("Mystery")){
+
+            } else if (input.equalsIgnoreCase("Mystery")) {
                 System.out.println("Good job");
                 break;
-            }else {
+            } else {
                 System.out.println("Try again. Listen closely");
             }
-            
-        } 
-       
-       
+
+        }
+
     }
 
-    public static void play(int delay){
-        try{
+    public static void play(int delay) {
+        try {
             Thread.sleep(delay * 1000);
 
             File yourFile = new File("src/morse.wav");
@@ -133,7 +195,7 @@ public class PuzzleStarters {
             AudioFormat format;
             DataLine.Info info;
             Clip clip;
-        
+
             stream = AudioSystem.getAudioInputStream(yourFile);
             format = stream.getFormat();
             info = new DataLine.Info(Clip.class, format);
@@ -142,15 +204,11 @@ public class PuzzleStarters {
             clip.start();
             // Thread.sleep(1000);
 
-            
-            
-        }
-        catch (Exception e) {
-            //whatevers
+        } catch (Exception e) {
+            // whatevers
         }
 
     }
-
 
     public static void printOptions(String[] shelf, Queue<Character> pile) {
         System.out.println("Choose another book.");
@@ -165,7 +223,6 @@ public class PuzzleStarters {
         for (int i = 0; i < shelf.length; i++) {
             if (shelf[i] != null) {
                 System.out.println(shelf[i].substring(0, shelf[i].length() - 1));
-
             }
 
         }
@@ -201,6 +258,10 @@ public class PuzzleStarters {
                 + "\n -----------------------------------------------------------------------------------"
                 + "\n Input the book's code (the letters in parentheses) to place it on the shelf.\n");
 
+        // ArrayList<String> shelf = new ArrayList<>();
+        // for(int i = 0; i <bookList.length; i++){
+        // shelf.add(bookList[i]);
+        // }
         String[] shelf = { "The Name of this Book is Secret - Pseudonymous Bosch (NBS) P",
                 "The Hound of the Baskervilles - Sir Arthur Conan Doyle (HB) S",
                 "The Great Mouse Detective: Basil of Baker Street - Eve Titus (GMD) E",
@@ -210,6 +271,7 @@ public class PuzzleStarters {
         while (trapped) {
             // Input the book's code in parentheses to place it in the queue
             // Later implementation in application, use mouse to drag
+
             printOptions(shelf, pileOfBooks);
 
             String input = sc1.nextLine();
@@ -262,7 +324,9 @@ public class PuzzleStarters {
                     } else {
                         System.out.println("Wrong order! Try Again."); // start at beginning
                         pileOfBooks.clear();
-                        shelf = bookList;
+                        for (int c = 0; c < bookList.length; c++) {
+                            shelf[c] = bookList[c];
+                        }
                         trapped = true;
                         break; // put back at beginning
                     }
