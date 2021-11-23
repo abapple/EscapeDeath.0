@@ -3,8 +3,6 @@
 import java.io.*;
 import java.util.*;
 import javax.sound.sampled.*;
-import javax.crypto.NullCipher;
-import javax.management.monitor.MonitorSettingException;
 import javax.sound.sampled.AudioInputStream;
 
 public class PuzzleStarters {
@@ -73,15 +71,32 @@ public class PuzzleStarters {
     public static void main(String[] args) {
         // fluffy introductions
         readInHints();
-        System.out.println("Lets Begin!!");
-        // Scanner sc = new Scanner(System.in);
+        System.out.println(
+                " As you are walking home one evening," + "\n you decide to take a short cut through the woods."
+                        + "\n However, the farther you enter the more it seems unfamiliar to you."
+                        + "\n Suddenly, you hear a second set of footsteps from behind you. Then a third."
+                        + "\n Fear fuels you as you begin to run deeper into the unknown."
+                        + "\n But alas - you trip on an invisible branch and tumble to the ground."
+                        + "\n Pain fills your mind as darkness clouds your vision,"
+                        + "\n and as your consiousness fades all that you recall is weird laughter...");
+
+        System.out.println("" + " -----------------------------------------------------------------------------------"
+                + "\n -----------------------------------------------------------------------------------"
+                + "\n When your eyes open back up, you see two figures looking down at you."
+                + "\n You look see through them and see a sprawling, definitely haunted mansion named 'The Midnight Manor'"
+                + "\n Wait, see through them?! 'What? Never seen a ghost before,' the one on the right smirked."
+                + "\n The one on the left continued,'Well, guess you can say you've met two now."
+                + "\n Anyway, we're bored so you're gonna play these games at our house or else you'll die or whatever.'"
+                + "\n Still in disbelief, you try to back away but they grab both your arms and drag you to the entrance. "
+                + "\n 'Find your way out!' They gleefully say in chorus as they push you through the door,"
+                + "\n 'Or stay here and become a ghost, lol. Have fun :)'"
+                + "\n The door shuts behind you and disappears."
+                + "\n You find yourself in a hallway that seems to stretch endlessly in both directions.");
         int hintCnt = 3;
-
-        System.out.println("Find your way out!!");
         int number = 1 + (int) (Math.random() * ((20 - 1) + 1));
-        if (number == 10)
+        if (number == 10) {
             number = 15;
-
+        }
         recRoom(number, hintCnt);
         library_morse(hintCnt);
         library_books(hintCnt);
@@ -93,62 +108,73 @@ public class PuzzleStarters {
         // buttons on which game to play
 
         int coins = 0;
-
-        System.out.println("In this room, you have multiple games to play!" + 
-        "\n To play each game, enter corresponding input: " + 
-        "\n Cup Game : CG" + 
-        "\n Black Jack : BJ" + 
-        "\n Mystery Game : ???" + 
-        "\n Slot Machine : SM");
-        Scanner scan = new Scanner(System.in);
-        String userInput = scan.nextLine();
-        if (userInput.equalsIgnoreCase("CG")) {
-            coins += cupGame(hintCnt);
-        }
-        if (userInput.equalsIgnoreCase("BJ")) {
-            coins += blackJack(hintCnt);
-        }
-        if (userInput.equalsIgnoreCase("???")) {
-            coins += mysteryGame(hintCnt);
-        }
-        if (userInput.equalsIgnoreCase("SM")) {
-            if (coins == 3) {
-               slotMachine(hintCnt, coins);
-            } else {
-                System.out.println("You can't afford to play this yet.");
+        while (true) {
+            System.out.println("In this room, you have multiple games to play!"
+                    + "\n To play each game, enter corresponding input: " + "\n Cup Game : CG" + "\n Black Jack : BJ"
+                    + "\n Mystery Game : ???" + "\n Slot Machine : SM");
+            Scanner scan = new Scanner(System.in);
+            String userInput = scan.nextLine();
+            if (userInput.equalsIgnoreCase("CG")) {
+                coins = cupGame(coins);
+            }
+            if (userInput.equalsIgnoreCase("BJ")) {
+                coins = blackJack(coins);
+            }
+            if (userInput.equalsIgnoreCase("???")) {
+                coins = mysteryGame(hintCnt, coins);
+            }
+            if (userInput.equalsIgnoreCase("SM")) {
+                if (coins == 3) {
+                    slotMachine(hintCnt, coins);
+                } else {
+                    System.out.println("You can't afford to play this yet.");
+                }
             }
         }
     }
-    public static int cupGame(int hintCnt)
-    {
-        // Have 4 cups, and a ball that randomly equals the position of one of them. 
-        // If the user types in the correct input then they find the ball and receive a coin
-        // If they put in the wrong input, they must try again
-        while(true){
-           for(int m = 0; m < 4; m++) 
-           {
-               
-           }
+
+    public static int cupGame(int coins) {
+        System.out.println("There are 4 silver chalices upside down on a table before you."
+                + "\n A mysterious spirit whispers to you that a small, golden ball lies under one of them. "
+                + "\n If you guess correctly you may earn a shiny token.");
+        // ArrayList<Integer> chalices = new ArrayList<Integer>();
+        // for (int m = 0; m < 4; m++) {
+        // chalices.add(m + 1);
+        // }
+        boolean won = false;
+        while (!won) {
+            int smallBall = 1 + (int) (Math.random() * ((4 - 1) + 1));
+            Scanner scan0 = new Scanner(System.in);
+            int guess = scan0.nextInt();
+            if (guess == smallBall) {
+                System.out.println("The ball is here! You found it :) Here is your reward.");
+                scan0.close();
+                return coins + 1;
+            } else {
+                System.out.println(
+                        "The ball was not there." + "\n The cups proceed to switch around unaided by any human means,"
+                                + "\n and you now must try again.");
+            }
         }
         return 0;
     }
-    public static int blackJack(int hintCnt)
-    {
-        //hashmap<cardValue, card> 
+
+    public static int blackJack(int coins) {
+        // hashmap<cardValue, card>
         HashMap<Integer, String[]> deck = new HashMap();
         // deck.put(10, {King} );
-        
-        
+
         return 0;
     }
-    public static int mysteryGame(int hintCnt)
-    {
+
+    public static int mysteryGame(int hintCnt, int coins) {
         // the answer will have to be related to the theme
+
         return 0;
     }
-    public static void slotMachine(int hintCnt, int coins)
-    {
-        
+
+    public static void slotMachine(int hintCnt, int coins) {
+
     }
 
     public static void library_morse(int hintCnt) {
@@ -163,10 +189,14 @@ public class PuzzleStarters {
         }
         System.out.println("A paper peeks from beneath the record player. \n You pull it out to reveal "
                 + "the international morse code alphabet");
+        System.out.println(" A = .-    B = -..." + "\n C = -.-.  D = -.." + "\n E = .     F = ..-."
+                + "\n G = --.   H = ...." + "\n I = ..    J = .---" + "\n K = -.-   L = .-.." + "\n M = --    N = -."
+                + "\n O = ---   P = .--." + "\n Q = --.-  R = .-." + "\n S = ...   T = -" + "\n U = ..-   V = ...-"
+                + "\n W = .--   X = -..-" + "\n Y = -.--  Z = --..");
         Scanner sc = new Scanner(System.in);
         String answer = "Mystery";
         while (true) {
-            System.out.println("Translate the morse code and enter your guess");
+            System.out.println("Translate the morse code and enter your guess.");
             System.out.println("If you would like to play the sound again, press P");
             String input = sc.nextLine();
             if (input.equalsIgnoreCase("p")) {
@@ -176,10 +206,10 @@ public class PuzzleStarters {
                 System.out.println("Are you dumb?");
 
             } else if (input.equalsIgnoreCase("Mystery")) {
-                System.out.println("Good job");
+                System.out.println("What a mystery indeed - Good Job.");
                 break;
             } else {
-                System.out.println("Try again. Listen closely");
+                System.out.println("Try again. Listen closely.");
             }
 
         }
@@ -242,7 +272,7 @@ public class PuzzleStarters {
                 "The Murder on the Orient Express - Agatha Christie (MOE) A",
                 "The Girl Who Lived - Christopher Greyson (GWL) C", "The Westing Game - Ellen Raskin (WG) e" };
 
-        System.out.println("\n In the mystery section of the library,"
+        System.out.println("\n You take a look around, and in the mystery section of the library"
                 + "\n you find a bookshelf that has several novels piled upon it haphazardly."
                 + "\n The titles and authors are barely legible on most of them,"
                 + "\n but you notice 6 books that are bound in leather with prominent gold lettering on their bindings."
