@@ -13,26 +13,26 @@ public class PuzzleStarters {
     // hint(puzzleName, hintNumber)
     public static int giveHint(String Room, int hintCnt) {
         switch (hintCnt) {
-        case 3: {
-            // first hint
-            System.out.println(hints.get(Room).get(3));
-            break;
-        }
-        case 2: {
-            // second hint
-            System.out.println(hints.get(Room).get(2));
-            break;
-        }
-        case 1: {
-            // third hint
-            System.out.println(hints.get(Room).get(1));
-            break;
-        }
-        default: {
-            // out of hints
-            System.out.println("You alone");
-            break;
-        }
+            case 3: {
+                // first hint
+                System.out.println(hints.get(Room).get(3));
+                break;
+            }
+            case 2: {
+                // second hint
+                System.out.println(hints.get(Room).get(2));
+                break;
+            }
+            case 1: {
+                // third hint
+                System.out.println(hints.get(Room).get(1));
+                break;
+            }
+            default: {
+                // out of hints
+                System.out.println("You alone");
+                break;
+            }
         }
         hintCnt -= 1;
         return hintCnt;
@@ -138,7 +138,8 @@ public class PuzzleStarters {
     public static int cupGame(int coins) {
         System.out.println("There are 4 silver chalices upside down on a table before you."
                 + "\n A mysterious spirit whispers to you that a small, golden ball lies under one of them. "
-                + "\n If you guess correctly you may earn a shiny token.");
+                + "\n If you guess correctly you may earn a shiny token."
+                + "\n Choose a number 1 - 4 to get started.");
         // ArrayList<Integer> chalices = new ArrayList<Integer>();
         // for (int m = 0; m < 4; m++) {
         // chalices.add(m + 1);
@@ -152,6 +153,14 @@ public class PuzzleStarters {
             if (guess == smallBall) {
                 System.out.println("The ball is here! You found it :) Here is your reward.");
                 scan0.close();
+                File coinByte = new File("src/coin.wav");
+                play(3, coinByte);
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 return coins + 1;
             } else {
                 System.out.println(
@@ -272,7 +281,8 @@ public class PuzzleStarters {
     public static void library_morse(int hintCnt) {
         System.out.println("You see a dusty record player on a table in the middle of the library. "
                 + "\n As you approach, it begins to play an odd series of beeps and blips...\n");
-        play(5);
+        File morseByte = new File("src/morse.wav");
+        play(5, morseByte);
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -292,7 +302,7 @@ public class PuzzleStarters {
             System.out.println("If you would like to play the sound again, press P");
             String input = sc.nextLine();
             if (input.equalsIgnoreCase("p")) {
-                play(1);
+                play(1, morseByte);
             } else if (input.equalsIgnoreCase("hint")) {
                 hintCnt = giveHint("Morse", hintCnt);
                 System.out.println("Are you dumb?");
@@ -308,7 +318,7 @@ public class PuzzleStarters {
 
     }
 
-    public static void play(int delay) {
+    public static void play(int delay, File f) {
         try {
             Thread.sleep(delay * 1000);
 
@@ -318,7 +328,7 @@ public class PuzzleStarters {
             DataLine.Info info;
             Clip clip;
 
-            stream = AudioSystem.getAudioInputStream(yourFile);
+            stream = AudioSystem.getAudioInputStream(f);
             format = stream.getFormat();
             info = new DataLine.Info(Clip.class, format);
             clip = (Clip) AudioSystem.getLine(info);
@@ -454,10 +464,18 @@ public class PuzzleStarters {
                     }
                 }
             }
-
         }
         System.out.println(
-                "You line the books correctly on the shelf to reveal a secret message, but maybe it is more literal than you think...");
+                "You line the books correctly on the shelf to reveal a secret message, but maybe it is more literal than you think..."
+                        + "\n The bookshelf slides open to reveal a grand entertainment room full of games.");
+        File doorOpenByte = new File("src/door_open.wav");
+        play(3, doorOpenByte);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
     }
 
@@ -466,7 +484,17 @@ public class PuzzleStarters {
         // finding door #10
         System.out.println(turns);
         if (turns == 10) {
-            System.out.println("You made it!");
+            System.out.println("An oddly large doorway sized painting looms in front of you now."
+                    + "\n You move it aside to reveal an opening into a private library.");
+            File doorOpenByte = new File("src/door_open.wav");
+            play(3, doorOpenByte);
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             // return;
         } else {
             if (turns >= 7 && turns <= 13) {
