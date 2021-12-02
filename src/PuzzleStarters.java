@@ -65,9 +65,11 @@ public class PuzzleStarters {
             }
 
         }
-        // hn.close();
+        hn.close();
 
     }
+
+    static final Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) {
         // fluffy introductions
@@ -99,23 +101,24 @@ public class PuzzleStarters {
             number = 15;
         }
         // blackJack(number);
-        recRoom(number, hintCnt);
-        library_morse(hintCnt);
-        library_books(hintCnt);
+        // recRoom(number, hintCnt);
+        // library_morse(hintCnt);
+        // library_books(hintCnt);
         gameRoom(hintCnt);
 
     }
 
     public static void gameRoom(int hintCnt) {
         // buttons on which game to play
-        Scanner scan = null;
         int coins = 0;
         while (true) {
-            scan = new Scanner(System.in);
+
             System.out.println("In this room, you have multiple games to play!"
                     + "\n To play each game, enter corresponding input: " + "\n Cup Game : CG" + "\n Black Jack : BJ"
                     + "\n Mystery Game : ???" + "\n Slot Machine : SM");
-            String userInput = scan.nextLine();
+
+            String userInput = "";
+            userInput = scan.nextLine();
             if (userInput.equalsIgnoreCase("CG")) {
                 coins = cupGame(coins);
             }
@@ -144,15 +147,12 @@ public class PuzzleStarters {
         // for (int m = 0; m < 4; m++) {
         // chalices.add(m + 1);
         // }
-        Scanner scan0 = null;
         boolean won = false;
         while (!won) {
-            scan0 = new Scanner(System.in);
             int smallBall = 1 + (int) (Math.random() * ((4 - 1) + 1));
-            int guess = scan0.nextInt();
+            int guess = scan.nextInt();
             if (guess == smallBall) {
                 System.out.println("The ball is here! You found it :) Here is your reward.");
-                scan0.close();
                 File coinByte = new File("src/coin.wav");
                 play(3, coinByte);
                 try {
@@ -168,7 +168,7 @@ public class PuzzleStarters {
                                 + "\n and you now must try again.");
             }
         }
-        return 0;
+        return coins;
     }
 
     public static int dealCard(Stack<String> pHand, Stack<String> hand) {
@@ -184,13 +184,16 @@ public class PuzzleStarters {
         card = 1 + (int) (Math.random() * ((13 - 1) + 1));
         suit = 1 + (int) (Math.random() * ((3 - 1) + 1));
         while (falseCard) {
+            card = 1 + (int) (Math.random() * ((13 - 1) + 1));
+            suit = 1 + (int) (Math.random() * ((3 - 1) + 1));
             if (1 < card && card < 10) {
                 newCard = "" + card + " of " + suits[suit];
                 if (!hand.contains(newCard)) {
                     hand.push(newCard);
                     pHand.push(newCard);
-                    falseCard = false;
                     value = card;
+
+                    break;
                 }
                 // normal cards
             } else if (card > 10) {
@@ -200,7 +203,7 @@ public class PuzzleStarters {
                     hand.push(newCard);
                     pHand.push(newCard);
                     value = 10;
-                    falseCard = false;
+                    break;
                 }
 
                 // face cards j-k
@@ -209,8 +212,10 @@ public class PuzzleStarters {
                 if (!hand.contains(newCard)) {
                     hand.push(newCard);
                     pHand.push(newCard);
-                    falseCard = false;
                     value = 0;
+                    break;
+                } else {
+                    falseCard = true;
                 }
                 // ace
             }
@@ -220,7 +225,6 @@ public class PuzzleStarters {
     }
 
     public static int blackJack(int coins) {
-        Scanner turn = new Scanner(System.in);
         int pTotal = 0;
         int dTotal = 0;
         Stack<String> Uhand = new Stack<>();
@@ -234,19 +238,22 @@ public class PuzzleStarters {
             dTotal += dealCard(Dhand, comboHand);
         }
         // users turn
-        System.out.println("The dealer has " + Dhand.peek() + "facing up.");
+        System.out.println("The dealer has " + Dhand.peek() + " facing up.");
         while (true) {
             System.out.println("You have : " + Uhand.toString());
             System.out.println(
                     "Enter what you would like to do... " + "\n Hit : H" + "\n Stay : P" /** + "\n Split : S" */
             );
-            String in = turn.nextLine();
+            String in = scan.nextLine();
             if (in.equalsIgnoreCase("H")) {
                 pTotal += dealCard(Uhand, comboHand);
                 System.out.println("You recieved a(n) " + Uhand.peek());
                 // pTotal += countTotal(Uhand);
-                if (pTotal > 21)
+                if (pTotal > 21) {
                     System.out.println("You busted!!");
+                    pTotal = -1;
+                    break;
+                }
 
             } else if (in.equalsIgnoreCase("P")) {
                 System.out.println("You passed your turn.");
@@ -270,7 +277,7 @@ public class PuzzleStarters {
         boolean dealer = true;
         while (dealer) {
             System.out.println("The dealer has " + Dhand.toString());
-            if ((dTotal > pTotal && dTotal <= 21)) {
+            if (pTotal == -1 || (dTotal > pTotal && dTotal <= 21)) {
                 System.out.println("You lose.");
                 dealer = false;
             } else if (dTotal < pTotal) {
@@ -279,8 +286,17 @@ public class PuzzleStarters {
             } else if (dTotal > 21) {
                 System.out.println("The dealer busted!!");
                 if (pTotal <= 21) {
-                    System.out.println("You win!");
+                    System.out.println("You win! Heres a coin. ");
                     coins += 1;
+                    File coinByte = new File("src/coin.wav");
+                    play(3, coinByte);
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    return coins;
                 } else
                     System.out.println("You lose.");
 
@@ -291,7 +307,7 @@ public class PuzzleStarters {
         Dhand.clear();
         while (true) {
             System.out.println("Would you like to try again? Y/N ");
-            String in = turn.nextLine();
+            String in = scan.nextLine();
             if (in.equalsIgnoreCase("n")) {
                 System.out.println("Thank you for playing");
                 break;
@@ -335,12 +351,11 @@ public class PuzzleStarters {
                 + "\n G = --.   H = ...." + "\n I = ..    J = .---" + "\n K = -.-   L = .-.." + "\n M = --    N = -."
                 + "\n O = ---   P = .--." + "\n Q = --.-  R = .-." + "\n S = ...   T = -" + "\n U = ..-   V = ...-"
                 + "\n W = .--   X = -..-" + "\n Y = -.--  Z = --..");
-        Scanner sc = new Scanner(System.in);
         String answer = "Mystery";
         while (true) {
             System.out.println("Translate the morse code and enter your guess.");
             System.out.println("If you would like to play the sound again, press P");
-            String input = sc.nextLine();
+            String input = scan.nextLine();
             if (input.equalsIgnoreCase("p")) {
                 play(1, morseByte);
             } else if (input.equalsIgnoreCase("hint")) {
@@ -355,7 +370,6 @@ public class PuzzleStarters {
             }
 
         }
-
     }
 
     public static void play(int delay, File f) {
@@ -402,7 +416,6 @@ public class PuzzleStarters {
 
     public static void library_books(int hintCnt) {
         // THE KEY TO GET HERE IS MYSTERY
-        Scanner sc1 = new Scanner(System.in);
         boolean trapped = true;
         // book puzzle implementing queue and while loop boolean trapped = true;
         Queue<Character> pileOfBooks = new LinkedList();
@@ -446,7 +459,7 @@ public class PuzzleStarters {
 
             printOptions(shelf, pileOfBooks);
 
-            String input = sc1.nextLine();
+            String input = scan.nextLine();
             // p == NBS;
             if (input.equalsIgnoreCase("NBS")) {
                 if (!pileOfBooks.contains('P')) {
@@ -542,9 +555,8 @@ public class PuzzleStarters {
             } else if (turns <= 0 || turns >= 20) {
                 tauntPlayer(false);
             }
-            Scanner in = new Scanner(System.in);
             System.out.println("Press L for left or R for right");
-            String input = in.nextLine();
+            String input = scan.nextLine();
             char dir = input.charAt(0);
             if (dir == 'l' || dir == 'L') {
                 recRoom(turns - 1, hintCnt);
