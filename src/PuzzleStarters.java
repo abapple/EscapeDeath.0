@@ -171,44 +171,52 @@ public class PuzzleStarters {
         return 0;
     }
 
-    public static String dealCard(int total, Stack<String> hand) {
+    public static int dealCard(Stack<String> pHand, Stack<String> hand) {
 
-        String newCard;
-        int card = 1 + (int) (Math.random() * ((13 - 1) + 1));
-        int suit = 1 + (int) (Math.random() * ((4 - 1) + 1));
-
+        String newCard = "";
+        int card;
+        int suit;
+        int value = 0;
         String[] suits = { "Spades", "Hearts", "Clubs", "Diamonds" };
         String[] faces = { "King", "Queen", "Jack" };
         System.out.println(" blah blah deal out card");
+        boolean falseCard = true;
         card = 1 + (int) (Math.random() * ((13 - 1) + 1));
-        suit = 1 + (int) (Math.random() * ((4 - 1) + 1));
-        if (1 < card && card < 10) {
-            newCard = "" + card + " of " + suits[suit];
-            if (!hand.contains(newCard)) {
-                hand.push(newCard);
-                total += card;
+        suit = 1 + (int) (Math.random() * ((3 - 1) + 1));
+        while (falseCard) {
+            if (1 < card && card < 10) {
+                newCard = "" + card + " of " + suits[suit];
+                if (!hand.contains(newCard)) {
+                    hand.push(newCard);
+                    pHand.push(newCard);
+                    falseCard = false;
+                    value = card;
+                }
+                // normal cards
+            } else if (card > 10) {
+                int face = 1 + (int) (Math.random() * ((2 - 1) + 1));
+                newCard = "" + faces[face] + " of " + suits[suit];
+                if (!hand.contains(newCard)) {
+                    hand.push(newCard);
+                    pHand.push(newCard);
+                    value = 10;
+                    falseCard = false;
+                }
 
+                // face cards j-k
+            } else {
+                newCard = "Ace" + " of " + suits[suit];
+                if (!hand.contains(newCard)) {
+                    hand.push(newCard);
+                    pHand.push(newCard);
+                    falseCard = false;
+                    value = 0;
+                }
+                // ace
             }
-
-            // normal cards
-        } else if (card > 10) {
-            int face = 1 + (int) (Math.random() * ((3 - 1) + 1));
-            newCard = "" + faces[face] + " of " + suits[suit];
-            if (!hand.contains(newCard)) {
-                hand.push(newCard);
-                total += 10;
-
-            }
-
-            // face cards j-k
-        } else {
-            newCard = "Ace" + " of " + suits[suit];
-            if (!hand.contains(newCard)) {
-                hand.push(newCard);
-            }
-            // ace
         }
-        return newCard;
+
+        return value;
     }
 
     public static int blackJack(int coins) {
@@ -216,56 +224,88 @@ public class PuzzleStarters {
         int pTotal = 0;
         int dTotal = 0;
         Stack<String> Uhand = new Stack<>();
-        Stack<String> Uhand2 = new Stack<>();
+        // Stack<String> Uhand2 = new Stack<>();
         Stack<String> Dhand = new Stack<>();
         Stack<String> comboHand = new Stack<>();
-        String newCard;
+        // String newCard;
         System.out.println(" magical initial deal");
-        newCard = dealCard(pTotal, comboHand);
-        Uhand.push(newCard);
-        newCard = dealCard(pTotal, comboHand);
-        Uhand.push(newCard);
-        newCard = dealCard(dTotal, comboHand);
-        Dhand.push(newCard);
-        newCard = dealCard(dTotal, comboHand);
-        Dhand.push(newCard);
+        for (int i = 0; i < 2; i++) {
+            pTotal += dealCard(Uhand, comboHand);
+            dTotal += dealCard(Dhand, comboHand);
+        }
+        // users turn
+        System.out.println("The dealer has " + Dhand.peek() + "facing up.");
         while (true) {
             System.out.println("You have : " + Uhand.toString());
-
-            System.out.println("Enter what you would like to do... " + "\n Hit : H" + "\n Pass : P" + "\n Split : S");
+            System.out.println(
+                    "Enter what you would like to do... " + "\n Hit : H" + "\n Stay : P" /** + "\n Split : S" */
+            );
             String in = turn.nextLine();
             if (in.equalsIgnoreCase("H")) {
-                newCard = dealCard(pTotal, comboHand);
-                System.out.println("You recieved a(n) " + newCard);
-                if (pTotal > 21) {
+                pTotal += dealCard(Uhand, comboHand);
+                System.out.println("You recieved a(n) " + Uhand.peek());
+                // pTotal += countTotal(Uhand);
+                if (pTotal > 21)
                     System.out.println("You busted!!");
-                    System.out.println("Would you like to try again? Y/N ");
-                    in = turn.nextLine();
-                    if (in.equalsIgnoreCase("n")) {
-                        break;
-                    } else {
-                        System.out.println("Lets play again");
-                    }
-                } else if (pTotal == 21) {
-                    System.out.println("You win!!");
-                    coins += 1;
-                }
 
-            } else if (in.equalsIgnoreCase("S") && Uhand.size() == 2) {
-                String c1 = Uhand.pop();
-                String c2 = Uhand.pop();
-                String[] card1 = c1.split(" ");
-                String[] card2 = c2.split(" ");
-                if (card1[1].equals(card2[1])) {
-                    Uhand.push(c1);
-                    Uhand2.push(c2);
-                }
+            } else if (in.equalsIgnoreCase("P")) {
+                System.out.println("You passed your turn.");
+                break;
 
-            }
+            } else
+                System.out.println("Invalid input");
+
+            // else if (in.equalsIgnoreCase("S") && Uhand.size() == 2) {
+            // String c1 = Uhand.pop();
+            // String c2 = Uhand.pop();
+            // String[] card1 = c1.split(" ");
+            // String[] card2 = c2.split(" ");
+            // if (card1[1].equals(card2[1])) {
+            // Uhand.push(c1);
+            // // Uhand2.push(c2);
+            // }
+            // }
 
         }
+        boolean dealer = true;
+        while (dealer) {
+            System.out.println("The dealer has " + Dhand.toString());
+            if ((dTotal > pTotal && dTotal <= 21)) {
+                System.out.println("You lose.");
+                dealer = false;
+            } else if (dTotal < pTotal) {
+                System.out.println("He hits.");
+                dTotal += dealCard(Dhand, comboHand);
+            } else if (dTotal > 21) {
+                System.out.println("The dealer busted!!");
+                if (pTotal <= 21) {
+                    System.out.println("You win!");
+                    coins += 1;
+                } else
+                    System.out.println("You lose.");
 
-        return 0;
+                dealer = false;
+            }
+        }
+        Uhand.clear();
+        Dhand.clear();
+        while (true) {
+            System.out.println("Would you like to try again? Y/N ");
+            String in = turn.nextLine();
+            if (in.equalsIgnoreCase("n")) {
+                System.out.println("Thank you for playing");
+                break;
+
+            } else if (in.equalsIgnoreCase("y")) {
+                System.out.println("Lets play again");
+                coins += blackJack(coins);
+                break;
+            } else {
+                System.out.println("Invalid input");
+            }
+        }
+
+        return coins;
     }
 
     public static int mysteryGame(int hintCnt, int coins) {
