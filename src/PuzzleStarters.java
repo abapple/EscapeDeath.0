@@ -112,7 +112,7 @@ public class PuzzleStarters {
                     + "\nMystery Game : ???" + "\nSlot Machine : SM"
                     + "\nAs always, if you need a hint, just type in 'hint'");
             String userInput = "";
-            userInput = scan.nextLine();
+            userInput = scan.next();
             if (userInput.equalsIgnoreCase("CG")) {
                 coins = cupGame(coins);
             } else if (userInput.equalsIgnoreCase("BJ")) {
@@ -265,7 +265,7 @@ public class PuzzleStarters {
             if (pTotal == -1 || (dTotal > pTotal && dTotal <= 21)) {
                 System.out.println("You lose.");
                 dealer = false;
-            } else if (dTotal < pTotal) {
+            } else if (dTotal <= pTotal) {
                 System.out.println("He hits.");
                 dTotal += dealCard(Dhand, comboHand);
             } else if (dTotal > 21) {
