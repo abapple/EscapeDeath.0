@@ -1,4 +1,3 @@
-
 // import java.awt.im.InputContext;
 import java.io.*;
 import java.util.*;
@@ -106,7 +105,7 @@ public class PuzzleStarters {
     }
 
     public static void gameRoom(int hintCnt) {
-        // buttons on which game to play
+        // Buttons on which game to play
         int coins = 0;
         while (true) {
             System.out.println("In this room, you have multiple games to play!"
@@ -146,10 +145,6 @@ public class PuzzleStarters {
                 + "\nA mysterious spirit whispers to you that a small, golden ball lies under one of them."
                 + "\nIf you guess correctly you may earn a shiny token."
                 + "\nChoose a number 1 - 4 to get started.");
-        // ArrayList<Integer> chalices = new ArrayList<Integer>();
-        // for (int m = 0; m < 4; m++) {
-        // chalices.add(m + 1);
-        // }
         boolean won = false;
         while (!won) {
             int smallBall = 1 + (int) (Math.random() * ((4 - 1) + 1));
@@ -167,7 +162,6 @@ public class PuzzleStarters {
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 return coins + 1;
@@ -201,7 +195,7 @@ public class PuzzleStarters {
                     value = card;
                     break;
                 }
-                // normal cards
+                // Normal number cards
             } else if (card > 10) {
                 int face = 1 + (int) (Math.random() * ((2 - 1) + 1));
                 newCard = "" + faces[face] + " of " + suits[suit];
@@ -211,7 +205,7 @@ public class PuzzleStarters {
                     value = 10;
                     break;
                 }
-                // face cards j-k
+                // Face cards j-k
             } else {
                 newCard = "Ace" + " of " + suits[suit];
                 if (!hand.contains(newCard)) {
@@ -222,7 +216,7 @@ public class PuzzleStarters {
                 } else {
                     falseCard = true;
                 }
-                // ace
+                // Ace
             }
         }
         return value;
@@ -247,16 +241,14 @@ public class PuzzleStarters {
         int pTotal = 0;
         int dTotal = 0;
         Stack<String> Uhand = new Stack<>();
-        // Stack<String> Uhand2 = new Stack<>();
         Stack<String> Dhand = new Stack<>();
         Stack<String> comboHand = new Stack<>();
-        // String newCard;
         System.out.println("The cards flit about in the air and the hands are dealt out.");
         for (int i = 0; i < 2; i++) {
             pTotal += dealCard(Uhand, comboHand);
             dTotal += dealCard(Dhand, comboHand);
         }
-        // users turn
+        // Users turn
         System.out.println("The dealer has " + Dhand.peek() + " facing up.");
         while (true) {
             System.out.println("You have : " + Uhand.toString());
@@ -273,7 +265,6 @@ public class PuzzleStarters {
                 pTotal += dealCard(Uhand, comboHand);
                 System.out.println("You recieved a(n) " + Uhand.peek());
                 pTotal += AceCard(pTotal, Uhand);
-                // pTotal += countTotal(Uhand);
                 if (pTotal > 21) {
                     System.out.println("You busted!!");
                     pTotal = -1;
@@ -316,7 +307,6 @@ public class PuzzleStarters {
                     try {
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                     return coins;
@@ -367,7 +357,6 @@ public class PuzzleStarters {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         System.out.println("A paper peeks from beneath the record player. \nYou pull it out to reveal "
@@ -405,7 +394,6 @@ public class PuzzleStarters {
     public static void play(int delay, File f) {
         try {
             Thread.sleep(delay * 1000);
-            File yourFile = new File("src/morse.wav");
             AudioInputStream stream;
             AudioFormat format;
             DataLine.Info info;
@@ -416,9 +404,7 @@ public class PuzzleStarters {
             clip = (Clip) AudioSystem.getLine(info);
             clip.open(stream);
             clip.start();
-            // Thread.sleep(1000);
         } catch (Exception e) {
-            // whatevers
         }
     }
 
@@ -441,7 +427,7 @@ public class PuzzleStarters {
     public static void library_books(int hintCnt) {
         // THE KEY TO GET HERE IS MYSTERY
         boolean trapped = true;
-        // book puzzle implementing queue and while loop boolean trapped = true;
+        // Book puzzle implementing queue and while loop boolean trapped = true;
         Queue<Character> pileOfBooks = new LinkedList();
         char[] sctMsg = { 'E', 'S', 'C', 'A', 'P', 'e' };
         String[] bookList = { "The Name of this Book is Secret - Pseudonymous Bosch (NBS) P",
@@ -464,10 +450,6 @@ public class PuzzleStarters {
                 + "\n -----------------------------------------------------------------------------------"
                 + "\nInput the book's code (the letters in parentheses) to place it on the shelf."
                 + "\nAnd if you need a hint, just type in 'hint'\n");
-        // ArrayList<String> shelf = new ArrayList<>();
-        // for(int i = 0; i <bookList.length; i++){
-        // shelf.add(bookList[i]);
-        // }
         String[] shelf = { "The Name of this Book is Secret - Pseudonymous Bosch (NBS) P",
                 "The Hound of the Baskervilles - Sir Arthur Conan Doyle (HB) S",
                 "The Great Mouse Detective: Basil of Baker Street - Eve Titus (GMD) E",
@@ -475,7 +457,6 @@ public class PuzzleStarters {
                 "The Girl Who Lived - Christopher Greyson (GWL) C", "The Westing Game - Ellen Raskin (WG) e" };
         while (trapped) {
             // Input the book's code in parentheses to place it in the queue
-            // Later implementation in application, use mouse to drag
             printOptions(shelf, pileOfBooks);
             String input = "";
             try {
@@ -483,7 +464,7 @@ public class PuzzleStarters {
             } catch (Exception e) {
                 System.out.println("Not an option");
             }
-            // p == NBS;
+            // P == NBS;
             if (input.equalsIgnoreCase("NBS")) {
                 if (!pileOfBooks.contains('P')) {
                     pileOfBooks.offer('P');
@@ -514,7 +495,7 @@ public class PuzzleStarters {
             } else {
                 System.out.println("We don't have that book.");
             }
-            // checking if all books are on shelf
+            // Checking if all books are on shelf
             if (pileOfBooks.size() == sctMsg.length) {
                 for (int i = 0; i < sctMsg.length; i++) {
                     if (pileOfBooks.peek() == sctMsg[i]) {
@@ -523,13 +504,13 @@ public class PuzzleStarters {
                             trapped = false;
                         }
                     } else {
-                        System.out.println("Wrong order! Try Again."); // start at beginning
+                        System.out.println("Wrong order! Try Again."); // Start at beginning
                         pileOfBooks.clear();
                         for (int c = 0; c < bookList.length; c++) {
                             shelf[c] = bookList[c];
                         }
                         trapped = true;
-                        break; // put back at beginning
+                        break; // Put back at beginning
                     }
                 }
             }
@@ -542,14 +523,11 @@ public class PuzzleStarters {
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
     public static void recRoom(int turns, int hintCnt) {
-        // door will be turns num; doors are "locked" until
-        // finding door #10
         System.out.println(turns);
         if (turns == 10) {
             System.out.println("An oddly large doorway sized painting looms in front of you now."
@@ -559,10 +537,8 @@ public class PuzzleStarters {
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            // return;
         } else {
             if (turns >= 7 && turns <= 13) {
                 tauntPlayer(true);
@@ -584,7 +560,6 @@ public class PuzzleStarters {
                 System.out.println("Not an option my friend");
                 recRoom(turns, hintCnt);
             }
-            // in.close();
         }
     }
 
@@ -595,7 +570,6 @@ public class PuzzleStarters {
         try {
             tnt = new Scanner(new File("src/taunts.txt"));
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         for (int i = 0; i < 5; i++) {
