@@ -1,34 +1,35 @@
 Recursion
 3
-That number keeps changing... I wonder how?
+*That number keeps changing... I wonder how?
 2
-Left makes the number go down, and right makes it go up.
+**Left makes the number go down, and right makes it go up.
 1
-You are trying to make the number of turns equal to 10.
+***You are trying to make the number of turns equal to 10.
 Morse
 3
-The first letter is two dashes, that means it is an ‘M’
+*The first letter is two dashes, that means it is an M
 2
-The word may have something to do with books… a genre maybe?
+**The word may have something to do with books… a genre maybe?
 1
-The word is  --  -.--  …  -  .  .-.  -.--
+***The word is  --  -.--  …  -  .  .-.  -.--
 Books 
 3
-You are trying to make a word out of the order of the books.
+*You are trying to make a word out of the order of the books.
 2
-Maybe try looking at the authors’ names?
+**Maybe try looking at the authors’ names?
 1
-Look at the first letter of each author’s name - the first book in the order is The Great Mouse Detective
+***Look at the first letter of each author’s name - the first book in the order is The Great Mouse Detective
 Casino
 3
-You need at least 3 coins to use the slot machine. Get to playing!
+*You need at least 3 coins to use the slot machine. Get to playing!
 2
-Having a hard time beating some of the games? You can always replay one you did before to get more coins.
+**Having a hard time beating some of the games? You can always replay one you did before to get more coins.
 1
-The easiest game is the Cup Game - just pump it for coins, lol.
+***The easiest game is the Cup Game - just pump it for coins, lol.
 MysteryGame
 3
-
+* 
 2
-
+** 
 1
+*** 

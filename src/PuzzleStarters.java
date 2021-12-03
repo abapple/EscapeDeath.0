@@ -1,14 +1,11 @@
-
 // import java.awt.im.InputContext;
 import java.io.*;
 import java.util.*;
-import javax.net.ssl.HandshakeCompletedEvent;
 import javax.sound.sampled.*;
 import javax.sound.sampled.AudioInputStream;
 
 public class PuzzleStarters {
     public static HashMap<String, HashMap<Integer, String>> hints = new HashMap<>();
-
     // <Room, <HintNum, HintText>>
     // hint(puzzleName, hintNumber)
     public static int giveHint(String Room, int hintCnt) {
@@ -36,7 +33,6 @@ public class PuzzleStarters {
         }
         hintCnt -= 1;
         return hintCnt;
-
     }
 
     public static void readInHints() {
@@ -63,10 +59,8 @@ public class PuzzleStarters {
                 String hint = hn.nextLine();
                 hints.get(room).put(num, hint);
             }
-
         }
         hn.close();
-
     }
 
     static final Scanner scan = new Scanner(System.in);
@@ -75,60 +69,60 @@ public class PuzzleStarters {
         // fluffy introductions
         readInHints();
         System.out.println(
-                " As you are walking home one evening," + "\n you decide to take a short cut through the woods."
-                        + "\n However, the farther you enter the more it seems unfamiliar to you."
-                        + "\n Suddenly, you hear a second set of footsteps from behind you. Then a third."
-                        + "\n Fear fuels you as you begin to run deeper into the unknown."
-                        + "\n But alas - you trip on an invisible branch and tumble to the ground."
-                        + "\n Pain fills your mind as darkness clouds your vision,"
-                        + "\n and as your consiousness fades all that you recall is weird laughter...");
+                "As you are walking home one evening," + "\nyou decide to take a short cut through the woods."
+                        + "\nHowever, the farther you enter the more it seems unfamiliar to you."
+                        + "\nSuddenly, you hear a second set of footsteps from behind you. Then a third."
+                        + "\nFear fuels you as you begin to run deeper into the unknown."
+                        + "\nBut alas - you trip on an invisible branch and tumble to the ground."
+                        + "\nPain fills your mind as darkness clouds your vision,"
+                        + "\nand as your consiousness fades all that you recall is weird laughter...");
 
         System.out.println("" + " -----------------------------------------------------------------------------------"
                 + "\n -----------------------------------------------------------------------------------"
-                + "\n When your eyes open back up, you see two figures looking down at you."
-                + "\n You look see through them and see a sprawling, definitely haunted mansion named 'The Midnight Manor'"
-                + "\n Wait, see through them?! 'What? Never seen a ghost before,' the one on the right smirked."
-                + "\n The one on the left continued,'Well, guess you can say you've met two now."
-                + "\n Anyway, we're bored so you're gonna play these games at our house or else you'll die or whatever.'"
-                + "\n Still in disbelief, you try to back away but they grab both your arms and drag you to the entrance. "
-                + "\n 'Find your way out!' They gleefully say in chorus as they push you through the door,"
-                + "\n 'Or stay here and become a ghost, lol. Have fun :)'"
-                + "\n The door shuts behind you and disappears."
-                + "\n You find yourself in a hallway that seems to stretch endlessly in both directions.");
+                + "\nWhen your eyes open back up, you see two figures looking down at you."
+                + "\nYou look see through them and see a sprawling, definitely haunted mansion named "
+                + "\n'The Midnight Manor'"
+                + "\nWait, see through them?! 'What? Never seen a ghost before,' the one on the right smirked."
+                + "\nThe one on the left continued,'Well, guess you can say you've met two now."
+                + "\nAnyway, we're bored so you're gonna play these games at our house "
+                + "\nor else you'll die or whatever.'"
+                + "\nStill in disbelief, you try to back away "
+                + "\nbut they grab both your arms and drag you to the entrance. "
+                + "\n'Find your way out!' They gleefully say in chorus as they push you through the door,"
+                + "\n'Or stay here and become a ghost, lol. Have fun :)'"
+                + "\nThe door shuts behind you and disappears."
+                + "\nYou find yourself in a hallway that seems to stretch endlessly in both directions.");
         int hintCnt = 3;
         int number = 1 + (int) (Math.random() * ((20 - 1) + 1));
         if (number == 10) {
             number = 15;
         }
-        // blackJack(number);
-        // recRoom(number, hintCnt);
-        // library_morse(hintCnt);
-        // library_books(hintCnt);
+        recRoom(number, hintCnt);
+        library_morse(hintCnt);
+        library_books(hintCnt);
         gameRoom(hintCnt);
-
     }
 
     public static void gameRoom(int hintCnt) {
         // buttons on which game to play
         int coins = 0;
         while (true) {
-
             System.out.println("In this room, you have multiple games to play!"
-                    + "\n To play each game, enter corresponding input: " + "\n Cup Game : CG" + "\n Black Jack : BJ"
-                    + "\n Mystery Game : ???" + "\n Slot Machine : SM");
-
+                    + "\nTo play each game, enter corresponding input: " + "\nCup Game : CG" + "\nBlack Jack : BJ"
+                    + "\nMystery Game : ???" + "\nSlot Machine : SM"
+                    + "\nAs always, if you need a hint, just type in 'hint'");
             String userInput = "";
             userInput = scan.nextLine();
             if (userInput.equalsIgnoreCase("CG")) {
                 coins = cupGame(coins);
-            }
-            if (userInput.equalsIgnoreCase("BJ")) {
+            } else if (userInput.equalsIgnoreCase("BJ")) {
                 coins = blackJack(coins);
-            }
-            if (userInput.equalsIgnoreCase("???")) {
+            } else if (userInput.equalsIgnoreCase("???")) {
                 coins = mysteryGame(hintCnt, coins);
-            }
-            if (userInput.equalsIgnoreCase("SM")) {
+            } else if (userInput.equalsIgnoreCase("hint")) {
+                hintCnt = giveHint("Casino", hintCnt);
+                System.out.println("Are you dumb?");
+            } else if (userInput.equalsIgnoreCase("SM")) {
                 if (coins == 3) {
                     slotMachine(hintCnt, coins);
                 } else {
@@ -140,9 +134,9 @@ public class PuzzleStarters {
 
     public static int cupGame(int coins) {
         System.out.println("There are 4 silver chalices upside down on a table before you."
-                + "\n A mysterious spirit whispers to you that a small, golden ball lies under one of them. "
-                + "\n If you guess correctly you may earn a shiny token."
-                + "\n Choose a number 1 - 4 to get started.");
+                + "\nA mysterious spirit whispers to you that a small, golden ball lies under one of them."
+                + "\nIf you guess correctly you may earn a shiny token."
+                + "\nChoose a number 1 - 4 to get started.");
         // ArrayList<Integer> chalices = new ArrayList<Integer>();
         // for (int m = 0; m < 4; m++) {
         // chalices.add(m + 1);
@@ -164,22 +158,20 @@ public class PuzzleStarters {
                 return coins + 1;
             } else {
                 System.out.println(
-                        "The ball was not there." + "\n The cups proceed to switch around unaided by any human means,"
-                                + "\n and you now must try again.");
+                        "The ball was not there." + "\nThe cups proceed to switch around unaided by any human means,"
+                                + "\nand you now must try again.");
             }
         }
         return coins;
     }
 
     public static int dealCard(Stack<String> pHand, Stack<String> hand) {
-
         String newCard = "";
         int card;
         int suit;
         int value = 0;
         String[] suits = { "Spades", "Hearts", "Clubs", "Diamonds" };
         String[] faces = { "King", "Queen", "Jack" };
-        System.out.println(" blah blah deal out card");
         boolean falseCard = true;
         card = 1 + (int) (Math.random() * ((13 - 1) + 1));
         suit = 1 + (int) (Math.random() * ((3 - 1) + 1));
@@ -192,7 +184,6 @@ public class PuzzleStarters {
                     hand.push(newCard);
                     pHand.push(newCard);
                     value = card;
-
                     break;
                 }
                 // normal cards
@@ -205,7 +196,6 @@ public class PuzzleStarters {
                     value = 10;
                     break;
                 }
-
                 // face cards j-k
             } else {
                 newCard = "Ace" + " of " + suits[suit];
@@ -220,7 +210,6 @@ public class PuzzleStarters {
                 // ace
             }
         }
-
         return value;
     }
 
@@ -232,7 +221,7 @@ public class PuzzleStarters {
         Stack<String> Dhand = new Stack<>();
         Stack<String> comboHand = new Stack<>();
         // String newCard;
-        System.out.println(" magical initial deal");
+        System.out.println("The cards flit about in the air and the hands are dealt out.");
         for (int i = 0; i < 2; i++) {
             pTotal += dealCard(Uhand, comboHand);
             dTotal += dealCard(Dhand, comboHand);
@@ -242,7 +231,7 @@ public class PuzzleStarters {
         while (true) {
             System.out.println("You have : " + Uhand.toString());
             System.out.println(
-                    "Enter what you would like to do... " + "\n Hit : H" + "\n Stay : P" /** + "\n Split : S" */
+                    "Enter what you would like to do... " + "\nHit : H" + "\nStay : P" /** + "\n Split : S" */
             );
             String in = scan.nextLine();
             if (in.equalsIgnoreCase("H")) {
@@ -254,14 +243,11 @@ public class PuzzleStarters {
                     pTotal = -1;
                     break;
                 }
-
             } else if (in.equalsIgnoreCase("P")) {
                 System.out.println("You passed your turn.");
                 break;
-
             } else
                 System.out.println("Invalid input");
-
             // else if (in.equalsIgnoreCase("S") && Uhand.size() == 2) {
             // String c1 = Uhand.pop();
             // String c2 = Uhand.pop();
@@ -272,7 +258,6 @@ public class PuzzleStarters {
             // // Uhand2.push(c2);
             // }
             // }
-
         }
         boolean dealer = true;
         while (dealer) {
@@ -286,7 +271,7 @@ public class PuzzleStarters {
             } else if (dTotal > 21) {
                 System.out.println("The dealer busted!!");
                 if (pTotal <= 21) {
-                    System.out.println("You win! Heres a coin. ");
+                    System.out.println("You win! Heres a coin.");
                     coins += 1;
                     File coinByte = new File("src/coin.wav");
                     play(3, coinByte);
@@ -313,30 +298,27 @@ public class PuzzleStarters {
                 break;
 
             } else if (in.equalsIgnoreCase("y")) {
-                System.out.println("Lets play again");
+                System.out.println("Lets play again!");
                 coins += blackJack(coins);
                 break;
             } else {
                 System.out.println("Invalid input");
             }
         }
-
         return coins;
     }
 
     public static int mysteryGame(int hintCnt, int coins) {
         // the answer will have to be related to the theme
-
         return 0;
     }
 
     public static void slotMachine(int hintCnt, int coins) {
-
     }
 
     public static void library_morse(int hintCnt) {
-        System.out.println("You see a dusty record player on a table in the middle of the library. "
-                + "\n As you approach, it begins to play an odd series of beeps and blips...\n");
+        System.out.println("You see a dusty record player on a table in the middle of the room. "
+                + "\nAs you approach, it begins to play an odd series of beeps and blips...\n");
         File morseByte = new File("src/morse.wav");
         play(5, morseByte);
         try {
@@ -345,7 +327,7 @@ public class PuzzleStarters {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        System.out.println("A paper peeks from beneath the record player. \n You pull it out to reveal "
+        System.out.println("A paper peeks from beneath the record player. \nYou pull it out to reveal "
                 + "the international morse code alphabet");
         System.out.println(" A = .-    B = -..." + "\n C = -.-.  D = -.." + "\n E = .     F = ..-."
                 + "\n G = --.   H = ...." + "\n I = ..    J = .---" + "\n K = -.-   L = .-.." + "\n M = --    N = -."
@@ -354,7 +336,8 @@ public class PuzzleStarters {
         String answer = "Mystery";
         while (true) {
             System.out.println("Translate the morse code and enter your guess.");
-            System.out.println("If you would like to play the sound again, press P");
+            System.out.println("If you would like to play the sound again, press P"
+                    + "\nIf you need a hint, just type in 'hint'");
             String input = scan.nextLine();
             if (input.equalsIgnoreCase("p")) {
                 play(1, morseByte);
@@ -368,20 +351,17 @@ public class PuzzleStarters {
             } else {
                 System.out.println("Try again. Listen closely.");
             }
-
         }
     }
 
     public static void play(int delay, File f) {
         try {
             Thread.sleep(delay * 1000);
-
             File yourFile = new File("src/morse.wav");
             AudioInputStream stream;
             AudioFormat format;
             DataLine.Info info;
             Clip clip;
-
             stream = AudioSystem.getAudioInputStream(f);
             format = stream.getFormat();
             info = new DataLine.Info(Clip.class, format);
@@ -389,28 +369,24 @@ public class PuzzleStarters {
             clip.open(stream);
             clip.start();
             // Thread.sleep(1000);
-
         } catch (Exception e) {
             // whatevers
         }
-
     }
 
     public static void printOptions(String[] shelf, Queue<Character> pile) {
-        System.out.println("Choose another book.");
+        System.out.println("Choose a book.");
         for (char b : pile) {
             for (int i = 0; i < shelf.length; i++) {
                 if (shelf[i] != null && b == shelf[i].charAt(shelf[i].length() - 1)) {
                     shelf[i] = null;
                 }
             }
-
         }
         for (int i = 0; i < shelf.length; i++) {
             if (shelf[i] != null) {
                 System.out.println(shelf[i].substring(0, shelf[i].length() - 1));
             }
-
         }
     }
 
@@ -420,20 +396,17 @@ public class PuzzleStarters {
         // book puzzle implementing queue and while loop boolean trapped = true;
         Queue<Character> pileOfBooks = new LinkedList();
         char[] sctMsg = { 'E', 'S', 'C', 'A', 'P', 'e' };
-
         String[] bookList = { "The Name of this Book is Secret - Pseudonymous Bosch (NBS) P",
                 "The Hound of the Baskervilles - Sir Arthur Conan Doyle (HB) S",
                 "The Great Mouse Detective: Basil of Baker Street - Eve Titus (GMD) E",
                 "The Murder on the Orient Express - Agatha Christie (MOE) A",
                 "The Girl Who Lived - Christopher Greyson (GWL) C", "The Westing Game - Ellen Raskin (WG) e" };
-
-        System.out.println("\n You take a look around, and in the mystery section of the library"
-                + "\n you find a bookshelf that has several novels piled upon it haphazardly."
-                + "\n The titles and authors are barely legible on most of them,"
-                + "\n but you notice 6 books that are bound in leather with prominent gold lettering on their bindings."
-                + "\n You clear the other books away to reveal subtle indentations on the shelf - six of them."
-                + "\n You take a closer look at the ornately decorated books - they read as follows: ");
-
+        System.out.println("\nYou take a look around, and in the mystery section of the library"
+                + "\nyou find a bookshelf that has several novels piled upon it haphazardly."
+                + "\nThe titles and authors are barely legible on most of them,"
+                + "\nbut you notice 6 books that are bound in leather with prominent gold lettering on their bindings."
+                + "\nYou clear the other books away to reveal subtle indentations on the shelf - six of them."
+                + "\nYou take a closer look at the ornately decorated books - they read as follows: ");
         System.out.println(" " + "-----------------------------------------------------------------------------------"
                 + "\n -----------------------------------------------------------------------------------");
         for (int i = 0; i < bookList.length; i++) {
@@ -441,8 +414,8 @@ public class PuzzleStarters {
         }
         System.out.println(" " + "-----------------------------------------------------------------------------------"
                 + "\n -----------------------------------------------------------------------------------"
-                + "\n Input the book's code (the letters in parentheses) to place it on the shelf.\n");
-
+                + "\nInput the book's code (the letters in parentheses) to place it on the shelf."
+                + "\nAnd if you need a hint, just type in 'hint'\n");
         // ArrayList<String> shelf = new ArrayList<>();
         // for(int i = 0; i <bookList.length; i++){
         // shelf.add(bookList[i]);
@@ -452,49 +425,39 @@ public class PuzzleStarters {
                 "The Great Mouse Detective: Basil of Baker Street - Eve Titus (GMD) E",
                 "The Murder on the Orient Express - Agatha Christie (MOE) A",
                 "The Girl Who Lived - Christopher Greyson (GWL) C", "The Westing Game - Ellen Raskin (WG) e" };
-
         while (trapped) {
             // Input the book's code in parentheses to place it in the queue
             // Later implementation in application, use mouse to drag
-
             printOptions(shelf, pileOfBooks);
-
             String input = scan.nextLine();
             // p == NBS;
             if (input.equalsIgnoreCase("NBS")) {
                 if (!pileOfBooks.contains('P')) {
                     pileOfBooks.offer('P');
                 }
-
             } else if (input.equalsIgnoreCase("HB")) {
                 if (!pileOfBooks.contains('S')) {
                     pileOfBooks.offer('S');
                 }
-
             } else if (input.equalsIgnoreCase("GMD")) {
                 if (!pileOfBooks.contains('E')) {
                     pileOfBooks.offer('E');
                 }
-
             } else if (input.equalsIgnoreCase("MOE")) {
                 if (!pileOfBooks.contains('A')) {
                     pileOfBooks.offer('A');
                 }
-
             } else if (input.equalsIgnoreCase("GWL")) {
                 if (!pileOfBooks.contains('C')) {
                     pileOfBooks.offer('C');
                 }
-
             } else if (input.equalsIgnoreCase("WG")) {
                 if (!pileOfBooks.contains('e')) {
                     pileOfBooks.offer('e');
                 }
-
             } else if (input.equalsIgnoreCase("hint")) {
                 hintCnt = giveHint("Books", hintCnt);
                 System.out.println("Are you dumb?");
-
             } else {
                 System.out.println("We don't have that book.");
             }
@@ -520,7 +483,7 @@ public class PuzzleStarters {
         }
         System.out.println(
                 "You line the books correctly on the shelf to reveal a secret message, but maybe it is more literal than you think..."
-                        + "\n The bookshelf slides open to reveal a grand entertainment room full of games.");
+                        + "\nThe bookshelf slides open to reveal a grand entertainment room full of games.");
         File doorOpenByte = new File("src/door_open.wav");
         play(3, doorOpenByte);
         try {
@@ -529,7 +492,6 @@ public class PuzzleStarters {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
     }
 
     public static void recRoom(int turns, int hintCnt) {
@@ -538,7 +500,7 @@ public class PuzzleStarters {
         System.out.println(turns);
         if (turns == 10) {
             System.out.println("An oddly large doorway sized painting looms in front of you now."
-                    + "\n You move it aside to reveal an opening into a private library.");
+                    + "\nYou move it aside to reveal an opening into a private library.");
             File doorOpenByte = new File("src/door_open.wav");
             play(3, doorOpenByte);
             try {
@@ -547,7 +509,6 @@ public class PuzzleStarters {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-
             // return;
         } else {
             if (turns >= 7 && turns <= 13) {
@@ -555,7 +516,7 @@ public class PuzzleStarters {
             } else if (turns <= 0 || turns >= 20) {
                 tauntPlayer(false);
             }
-            System.out.println("Press L for left or R for right");
+            System.out.println("Press L for left or R for right, and if you need a hint, just type in 'hint'");
             String input = scan.nextLine();
             char dir = input.charAt(0);
             if (dir == 'l' || dir == 'L') {
@@ -577,7 +538,6 @@ public class PuzzleStarters {
     public static void tauntPlayer(boolean close) {
         ArrayList<String> enCourage = new ArrayList<>();
         ArrayList<String> disCourage = new ArrayList<>();
-
         Scanner tnt = null;
         try {
             tnt = new Scanner(new File("src/taunts.txt"));
@@ -600,5 +560,4 @@ public class PuzzleStarters {
         }
         tnt.close();
     }
-
 }

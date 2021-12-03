@@ -1,28 +1,35 @@
 Recursion
 3
-first
+*That number keeps changing... I wonder how?
 2
-second
+**Left makes the number go down, and right makes it go up.
 1
-third
+***You are trying to make the number of turns equal to 10.
 Morse
 3
-first
+*The first letter is two dashes, that means it is an M
 2
-second
+**The word may have something to do with books… a genre maybe?
 1
-third
-Books
+***The word is  --  -.--  …  -  .  .-.  -.--
+Books 
 3
-first
+*You are trying to make a word out of the order of the books.
 2
-second
+**Maybe try looking at the authors’ names?
 1
-third
+***Look at the first letter of each author’s name - the first book in the order is The Great Mouse Detective
 Casino
 3
-first
+*You need at least 3 coins to use the slot machine. Get to playing!
 2
-second
+**Having a hard time beating some of the games? You can always replay one you did before to get more coins.
 1
-third 
+***The easiest game is the Cup Game - just pump it for coins, lol.
+MysteryGame
+3
+* 
+2
+** 
+1
+*** 
