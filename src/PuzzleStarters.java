@@ -1,3 +1,4 @@
+
 // import java.awt.im.InputContext;
 import java.io.*;
 import java.util.*;
@@ -6,6 +7,7 @@ import javax.sound.sampled.AudioInputStream;
 
 public class PuzzleStarters {
     public static HashMap<String, HashMap<Integer, String>> hints = new HashMap<>();
+
     // <Room, <HintNum, HintText>>
     // hint(puzzleName, hintNumber)
     public static int giveHint(String Room, int hintCnt) {
@@ -112,7 +114,11 @@ public class PuzzleStarters {
                     + "\nMystery Game : ???" + "\nSlot Machine : SM"
                     + "\nAs always, if you need a hint, just type in 'hint'");
             String userInput = "";
-            userInput = scan.next();
+            try {
+                userInput = scan.next();
+            } catch (Exception e) {
+                System.out.println("Not an option");
+            }
             if (userInput.equalsIgnoreCase("CG")) {
                 coins = cupGame(coins);
             } else if (userInput.equalsIgnoreCase("BJ")) {
@@ -128,6 +134,9 @@ public class PuzzleStarters {
                 } else {
                     System.out.println("You can't afford to play this yet.");
                 }
+            } else {
+                System.out.println("Not an option");
+
             }
         }
     }
@@ -144,7 +153,13 @@ public class PuzzleStarters {
         boolean won = false;
         while (!won) {
             int smallBall = 1 + (int) (Math.random() * ((4 - 1) + 1));
-            int guess = scan.nextInt();
+            int guess = 0;
+            try {
+                guess = scan.nextInt();
+            } catch (Exception e) {
+                System.out.println("Not an option");
+            }
+
             if (guess == smallBall) {
                 System.out.println("The ball is here! You found it :) Here is your reward.");
                 File coinByte = new File("src/coin.wav");
@@ -213,6 +228,21 @@ public class PuzzleStarters {
         return value;
     }
 
+    public static int AceCard(int total, Stack<String> hand) {
+        for (String a : hand) {
+            String card = a.substring(0, 2);
+            if (card.equalsIgnoreCase("Ace")) {
+                if ((total + 11) <= 21) {
+                    return 11;
+                } else {
+                    return 1;
+                }
+            }
+        }
+        return 0;
+
+    }
+
     public static int blackJack(int coins) {
         int pTotal = 0;
         int dTotal = 0;
@@ -233,10 +263,16 @@ public class PuzzleStarters {
             System.out.println(
                     "Enter what you would like to do... " + "\nHit : H" + "\nStay : P" /** + "\n Split : S" */
             );
-            String in = scan.nextLine();
+            String in = "";
+            try {
+                in = scan.next();
+            } catch (Exception e) {
+                System.out.println("Not an option");
+            }
             if (in.equalsIgnoreCase("H")) {
                 pTotal += dealCard(Uhand, comboHand);
                 System.out.println("You recieved a(n) " + Uhand.peek());
+                pTotal += AceCard(pTotal, Uhand);
                 // pTotal += countTotal(Uhand);
                 if (pTotal > 21) {
                     System.out.println("You busted!!");
@@ -268,6 +304,8 @@ public class PuzzleStarters {
             } else if (dTotal <= pTotal) {
                 System.out.println("He hits.");
                 dTotal += dealCard(Dhand, comboHand);
+                dTotal += AceCard(dTotal, Dhand);
+
             } else if (dTotal > 21) {
                 System.out.println("The dealer busted!!");
                 if (pTotal <= 21) {
@@ -292,7 +330,12 @@ public class PuzzleStarters {
         Dhand.clear();
         while (true) {
             System.out.println("Would you like to try again? Y/N ");
-            String in = scan.nextLine();
+            String in = " ";
+            try {
+                in = scan.next();
+            } catch (Exception e) {
+                System.out.println("Not an option");
+            }
             if (in.equalsIgnoreCase("n")) {
                 System.out.println("Thank you for playing");
                 break;
@@ -338,7 +381,12 @@ public class PuzzleStarters {
             System.out.println("Translate the morse code and enter your guess.");
             System.out.println("If you would like to play the sound again, press P"
                     + "\nIf you need a hint, just type in 'hint'");
-            String input = scan.nextLine();
+            String input = " ";
+            try {
+                input = scan.next();
+            } catch (Exception e) {
+                System.out.println("Not an option");
+            }
             if (input.equalsIgnoreCase("p")) {
                 play(1, morseByte);
             } else if (input.equalsIgnoreCase("hint")) {
@@ -429,7 +477,12 @@ public class PuzzleStarters {
             // Input the book's code in parentheses to place it in the queue
             // Later implementation in application, use mouse to drag
             printOptions(shelf, pileOfBooks);
-            String input = scan.nextLine();
+            String input = "";
+            try {
+                input = scan.next();
+            } catch (Exception e) {
+                System.out.println("Not an option");
+            }
             // p == NBS;
             if (input.equalsIgnoreCase("NBS")) {
                 if (!pileOfBooks.contains('P')) {

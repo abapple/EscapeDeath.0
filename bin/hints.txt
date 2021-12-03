@@ -9,10 +9,10 @@ Morse
 3
 *The first letter is two dashes, that means it is an M
 2
-**The word may have something to do with books… a genre maybe?
+**The word may have something to do with books... a genre maybe?
 1
-***The word is  --  -.--  …  -  .  .-.  -.--
-Books 
+***The word is  --  -.--  ...  -  .  .-.  -.--
+Books
 3
 *You are trying to make a word out of the order of the books.
 2
