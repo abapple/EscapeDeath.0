@@ -33,7 +33,7 @@ public class map {
     }
     public static void makeMaze(HashMap<Integer, Queue<Integer>> map){
         //randomize the maze
-        int mazeNum = 1;
+        int mazeNum = 1+ (int) (Math.random() * ((3 - 1) + 1));;
         Queue<Integer> path = map.get(mazeNum);
         while(!path.isEmpty()){
                 grid[path.poll()-1][path.poll()-1]= ' ';
