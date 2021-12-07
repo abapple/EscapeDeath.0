@@ -1,3 +1,4 @@
+
 // import java.awt.im.InputContext;
 import java.io.*;
 import java.util.*;
@@ -98,17 +99,19 @@ public class PuzzleStarters {
         if (number == 10) {
             number = 15;
         }
-        recRoom(number, hintCnt);
-        library_morse(hintCnt);
-        library_books(hintCnt);
+        // recRoom(number, hintCnt);
+        // library_morse(hintCnt);
+        // library_books(hintCnt);
         gameRoom(hintCnt);
     }
 
     public static void gameRoom(int hintCnt) {
         // Buttons on which game to play
+        int probability = 0;
         int coins = 0;
         while (true) {
             System.out.println("In this room, you have multiple games to play!"
+                    + "\nCurrently you have " + coins + " amount of coins"
                     + "\nTo play each game, enter corresponding input: " + "\nCup Game : CG" + "\nBlack Jack : BJ"
                     + "\nMystery Game : ???" + "\nSlot Machine : SM"
                     + "\nAs always, if you need a hint, just type in 'hint'");
@@ -119,17 +122,22 @@ public class PuzzleStarters {
                 System.out.println("Not an option");
             }
             if (userInput.equalsIgnoreCase("CG")) {
-                coins = cupGame(coins);
+                coins += cupGame();
             } else if (userInput.equalsIgnoreCase("BJ")) {
-                coins = blackJack(coins);
+                coins += blackJack();
             } else if (userInput.equalsIgnoreCase("???")) {
-                coins = mysteryGame(hintCnt, coins);
+                coins += mysteryGame(hintCnt, coins);
             } else if (userInput.equalsIgnoreCase("hint")) {
                 hintCnt = giveHint("Casino", hintCnt);
                 System.out.println("Are you dumb?");
             } else if (userInput.equalsIgnoreCase("SM")) {
-                if (coins == 3) {
-                    slotMachine(hintCnt, coins);
+                if (coins >= 3) {
+                    coins = slotMachine(hintCnt, coins, probability);
+                    if(probability>=6){
+                        break;
+                    }
+                    probability++;
+
                 } else {
                     System.out.println("You can't afford to play this yet.");
                 }
@@ -138,9 +146,13 @@ public class PuzzleStarters {
 
             }
         }
+        //go onto next part of game. 
+
+        
     }
 
-    public static int cupGame(int coins) {
+    public static int cupGame() {
+        int coins = 0;
         System.out.println("There are 4 silver chalices upside down on a table before you."
                 + "\nA mysterious spirit whispers to you that a small, golden ball lies under one of them."
                 + "\nIf you guess correctly you may earn a shiny token."
@@ -223,23 +235,37 @@ public class PuzzleStarters {
     }
 
     public static int AceCard(int total, Stack<String> hand) {
+        int value = 0;
+        int acesT = 0;
+        int cnt = 0;
         for (String a : hand) {
-            String card = a.substring(0, 2);
+            String card = a.substring(0, 3);
             if (card.equalsIgnoreCase("Ace")) {
-                if ((total + 11) <= 21) {
-                    return 11;
-                } else {
-                    return 1;
-                }
+                cnt++;
             }
         }
-        return 0;
+        while(cnt>0){
+            value = 0;
+            cnt--;
+            if ((total + 11+ cnt) <= 21) {
+                value=11;
+                acesT+=11;
+            } else {
+                value=1;
+                acesT+=1;
+
+            }
+            total+=value;
+        }
+
+        return acesT;
 
     }
 
-    public static int blackJack(int coins) {
+    public static int blackJack() {
         int pTotal = 0;
         int dTotal = 0;
+         int coins = 0;
         Stack<String> Uhand = new Stack<>();
         Stack<String> Dhand = new Stack<>();
         Stack<String> comboHand = new Stack<>();
@@ -249,9 +275,12 @@ public class PuzzleStarters {
             dTotal += dealCard(Dhand, comboHand);
         }
         // Users turn
+        int pATotal=0;
         System.out.println("The dealer has " + Dhand.peek() + " facing up.");
         while (true) {
             System.out.println("You have : " + Uhand.toString());
+            pATotal += AceCard(pTotal, Uhand);
+
             System.out.println(
                     "Enter what you would like to do... " + "\nHit : H" + "\nStay : P" /** + "\n Split : S" */
             );
@@ -262,10 +291,12 @@ public class PuzzleStarters {
                 System.out.println("Not an option");
             }
             if (in.equalsIgnoreCase("H")) {
+                pATotal = 0;
                 pTotal += dealCard(Uhand, comboHand);
                 System.out.println("You recieved a(n) " + Uhand.peek());
-                pTotal += AceCard(pTotal, Uhand);
-                if (pTotal > 21) {
+                pATotal += AceCard(pTotal, Uhand);
+                System.out.println("Your total is :" + (pTotal + pATotal));
+                if (pTotal + pATotal > 21) {
                     System.out.println("You busted!!");
                     pTotal = -1;
                     break;
@@ -287,17 +318,23 @@ public class PuzzleStarters {
             // }
         }
         boolean dealer = true;
+        int dATotal = 0;
         while (dealer) {
+            dATotal = 0;
             System.out.println("The dealer has " + Dhand.toString());
-            if (pTotal == -1 || (dTotal > pTotal && dTotal <= 21)) {
+            dATotal += AceCard(dTotal, Dhand);
+                System.out.println("His total is " + (dTotal + dATotal));
+
+            if (pTotal + pATotal == -1 || (dTotal + dATotal > pTotal+ pATotal && dTotal + dATotal <= 21)) {
                 System.out.println("You lose.");
                 dealer = false;
-            } else if (dTotal <= pTotal) {
+            } else if ((dTotal + dATotal <= pTotal+ pATotal) && (dTotal + dATotal <21)) {
                 System.out.println("He hits.");
                 dTotal += dealCard(Dhand, comboHand);
-                dTotal += AceCard(dTotal, Dhand);
+                // dATotal = 0;
+                // dATotal += AceCard(dTotal, Dhand);
 
-            } else if (dTotal > 21) {
+            } else if (dTotal + dATotal > 21) {
                 System.out.println("The dealer busted!!");
                 if (pTotal <= 21) {
                     System.out.println("You win! Heres a coin.");
@@ -318,26 +355,6 @@ public class PuzzleStarters {
         }
         Uhand.clear();
         Dhand.clear();
-        while (true) {
-            System.out.println("Would you like to try again? Y/N ");
-            String in = " ";
-            try {
-                in = scan.next();
-            } catch (Exception e) {
-                System.out.println("Not an option");
-            }
-            if (in.equalsIgnoreCase("n")) {
-                System.out.println("Thank you for playing");
-                break;
-
-            } else if (in.equalsIgnoreCase("y")) {
-                System.out.println("Lets play again!");
-                coins += blackJack(coins);
-                break;
-            } else {
-                System.out.println("Invalid input");
-            }
-        }
         return coins;
     }
 
@@ -346,7 +363,68 @@ public class PuzzleStarters {
         return 0;
     }
 
-    public static void slotMachine(int hintCnt, int coins) {
+    public static int slotMachine(int hintCnt, int coins, int prob) {
+        int slot1;
+        int slot2;
+        int slot3;
+
+        while (coins > 0) {
+            slot1 = 1 + (int) (Math.random() * ((7 - 1) + 1));
+            slot2 = 1 + (int) (Math.random() * ((7 - 1) + 1));
+            slot3 = 1 + (int) (Math.random() * ((7 - 1) + 1));
+            coins--;
+            if (prob >= 2) {
+                slot1 = 7;
+            }
+            if (prob >= 4) {
+                slot3 = 7;
+            }
+            if (prob >= 6) {
+                slot2 = 7;
+            }
+            System.out.println("||   || " +
+                    " ||   || " + " ||   ||");
+            System.out.println("|| " + slot1 + " || " +
+                    " || " + slot2 + " || " + " || " + slot3 + " ||");
+            System.out.println("||   || " +
+                    " ||   || " + " ||   ||");
+            if (slot1 == 7 && slot2 == 7 && slot3 == 7) {
+                System.out.println("JACKPOT!!");
+                // coins jingling/ key drop
+                System.out.println("Hundreds of coins spill out the slot machine, followed by an old rusted key.");
+                break;
+            } else if (slot1 == 6 && slot2 == 6 && slot3 == 6) {
+                // spoopy
+            } else {
+                System.out.println("Better luck next time. ");
+                if(coins<=0){
+                    break;
+                }
+                while (true) {
+                    System.out.println("Would you like to try your luck again? Y/N ");
+                    String in = " ";
+                    try {
+                        in = scan.next();
+                    } catch (Exception e) {
+                        System.out.println("Not an option");
+                    }
+                    if (in.equalsIgnoreCase("n")) {
+                        System.out.println("Thank you for gambling");
+                        return coins;
+
+                    } else if (in.equalsIgnoreCase("y")) {
+                        System.out.println("Lets play again!");
+                        break;
+                    } else {
+                        System.out.println("Invalid input");
+                    }
+                }
+
+            }
+        }
+        System.out.println("You ran out of coins!! Play games for more.");
+        return coins;
+
     }
 
     public static void library_morse(int hintCnt) {
