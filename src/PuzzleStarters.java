@@ -1,5 +1,3 @@
-
-// import java.awt.im.InputContext;
 import java.io.*;
 import java.util.*;
 import javax.sound.sampled.*;
@@ -129,7 +127,7 @@ public class PuzzleStarters {
             } else if (userInput.equalsIgnoreCase("BJ")) {
                 coins += blackJack();
             } else if (userInput.equalsIgnoreCase("???")) {
-                coins += mysteryGame(hintCnt, coins);
+                coins += mazeGame();
             } else if (userInput.equalsIgnoreCase("hint")) {
                 hintCnt = giveHint("Casino", hintCnt);
                 System.out.println("Are you dumb?");
@@ -671,7 +669,7 @@ public class PuzzleStarters {
 
      
 
-    public static void mazeGame(){
+    public static int mazeGame(){
         grid = new char[GRID_SIZE][GRID_SIZE];
         for (int i = 0; i < GRID_SIZE; i++) {
             for (int j = 0; j < GRID_SIZE; j++) {
@@ -717,7 +715,7 @@ public class PuzzleStarters {
                 break;
             }
         }
-       
+       return 0;
         // printing out the maze
 
     }
