@@ -8,8 +8,6 @@ public class PuzzleStarters {
 
     // <Room, <HintNum, HintText>>
     // hint(puzzleName, hintNumber)
-    public static int GRID_SIZE = 6;
-    public static char[][] grid;
 
     public static int giveHint(String Room, int hintCnt) {
         switch (hintCnt) {
@@ -71,44 +69,44 @@ public class PuzzleStarters {
     public static void main(String[] args) {
         // fluffy introductions
         readInHints();
-        // System.out.println(
-        //         "As you are walking home one evening," + "\nyou decide to take a short cut through the woods."
-        //                 + "\nHowever, the farther you enter the more it seems unfamiliar to you."
-        //                 + "\nSuddenly, you hear a second set of footsteps from behind you. Then a third."
-        //                 + "\nFear fuels you as you begin to run deeper into the unknown."
-        //                 + "\nBut alas - you trip on an invisible branch and tumble to the ground."
-        //                 + "\nPain fills your mind as darkness clouds your vision,"
-        //                 + "\nand as your consiousness fades all that you recall is weird laughter...");
-        // final File atmosByte = new File("Game_Sounds/Outdoor_Ambiance.wav");
-        // play(0, atmosByte);
-        // try {
-        //     Thread.sleep(9000);
-        // } catch (InterruptedException e) {
-        //     e.printStackTrace();
-        // }
-        // footSteps();
-        // final File laughByte = new File("Game_Sounds/zapsplat_horror_evil_demonic_laugh_001_12149.wav");
-        // play(2, laughByte);
-        // try {
-        //     Thread.sleep(3000);
-        // } catch (InterruptedException e) {
-        //     e.printStackTrace();
-        // }
-        // System.out.println("" + " -----------------------------------------------------------------------------------"
-        //         + "\n -----------------------------------------------------------------------------------"
-        //         + "\nWhen your eyes open back up, you see two figures looking down at you."
-        //         + "\nYou look see through them and see a sprawling, definitely haunted mansion named "
-        //         + "\n'The Midnight Manor'"
-        //         + "\nWait, see through them?! 'What? Never seen a ghost before,' the one on the right smirked."
-        //         + "\nThe one on the left continued,'Well, guess you can say you've met two now."
-        //         + "\nAnyway, we're bored so you're gonna play these games at our house "
-        //         + "\nor else you'll die or whatever.'"
-        //         + "\nStill in disbelief, you try to back away "
-        //         + "\nbut they grab both your arms and drag you to the entrance. "
-        //         + "\n'Find your way out!' They gleefully say in chorus as they push you through the door,"
-        //         + "\n'Or stay here and become a ghost, lol. Have fun :)'"
-        //         + "\nThe door shuts behind you and disappears."
-        //         + "\nYou find yourself in a hallway that seems to stretch endlessly in both directions.");
+        System.out.println(
+                "As you are walking home one evening," + "\nyou decide to take a short cut through the woods."
+                        + "\nHowever, the farther you enter the more it seems unfamiliar to you."
+                        + "\nSuddenly, you hear a second set of footsteps from behind you. Then a third."
+                        + "\nFear fuels you as you begin to run deeper into the unknown."
+                        + "\nBut alas - you trip on an invisible branch and tumble to the ground."
+                        + "\nPain fills your mind as darkness clouds your vision,"
+                        + "\nand as your consiousness fades all that you recall is weird laughter...");
+        final File atmosByte = new File("Game_Sounds/Outdoor_Ambiance.wav");
+        play(0, atmosByte);
+        try {
+            Thread.sleep(9000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        footSteps();
+        final File laughByte = new File("Game_Sounds/zapsplat_horror_evil_demonic_laugh_001_12149.wav");
+        play(2, laughByte);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("" + " -----------------------------------------------------------------------------------"
+                + "\n -----------------------------------------------------------------------------------"
+                + "\nWhen your eyes open back up, you see two figures looking down at you."
+                + "\nYou look see through them and see a sprawling, definitely haunted mansion named "
+                + "\n'The Midnight Manor'"
+                + "\nWait, see through them?! 'What? Never seen a ghost before,' the one on the right smirked."
+                + "\nThe one on the left continued,'Well, guess you can say you've met two now."
+                + "\nAnyway, we're bored so you're gonna play these games at our house "
+                + "\nor else you'll die or whatever.'"
+                + "\nStill in disbelief, you try to back away "
+                + "\nbut they grab both your arms and drag you to the entrance. "
+                + "\n'Find your way out!' They gleefully say in chorus as they push you through the door,"
+                + "\n'Or stay here and become a ghost, lol. Have fun :)'"
+                + "\nThe door shuts behind you and disappears."
+                + "\nYou find yourself in a hallway that seems to stretch endlessly in both directions.");
         int hintCnt = 3;
         int number = 1 + (int) (Math.random() * ((20 - 1) + 1));
         if (number == 10) {
@@ -118,44 +116,44 @@ public class PuzzleStarters {
         library_morse(hintCnt);
         library_books(hintCnt);
         gameRoom(hintCnt);
-        mazeGame();
+        // mazeGame();
     }
-    public static void footSteps(){
+
+    public static void footSteps() {
         File stepByte1 = null;
         File stepByte2 = null;
         File stepByte3 = null;
         File stepByte4 = null;
-        for(int f = 0; f < 8; f++)
-        {
-        stepByte1 = new File("Game_Sounds/Corsica_S-Walking_on_snow_covered_gravel_01.flac");
-        play(0, stepByte1);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        for (int f = 0; f < 8; f++) {
+            stepByte1 = new File("Game_Sounds/Corsica_S-Walking_on_snow_covered_gravel_01.flac");
+            play(0, stepByte1);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            stepByte2 = new File("Game_Sounds/Corsica_S-Walking_on_snow_covered_gravel_06.flac");
+            play(1, stepByte2);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            stepByte3 = new File("Game_Sounds/Corsica_S-Walking_on_snow_covered_gravel_03.flac");
+            play(5, stepByte3);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            stepByte4 = new File("Game_Sounds/Corsica_S-Walking_on_snow_covered_gravel_07.flac");
+            play(2, stepByte4);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        stepByte2 = new File("Game_Sounds/Corsica_S-Walking_on_snow_covered_gravel_06.flac");
-        play(1, stepByte2);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        stepByte3 = new File("Game_Sounds/Corsica_S-Walking_on_snow_covered_gravel_03.flac");
-        play(5, stepByte3);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        stepByte4 = new File("Game_Sounds/Corsica_S-Walking_on_snow_covered_gravel_07.flac");
-        play(2, stepByte4);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
     }
 
     public static void gameRoom(int hintCnt) {
@@ -657,7 +655,7 @@ public class PuzzleStarters {
     }
 
     public static void recRoom(int turns, int hintCnt) {
-        System.out.println(turns);
+        System.out.println(turns + " is displayed on the door in front of you...");
         if (turns == 10) {
             System.out.println("An oddly large doorway sized painting looms in front of you now."
                     + "\nYou move it aside to reveal an opening into a private library.");
@@ -718,8 +716,8 @@ public class PuzzleStarters {
     }
 
     public static int mazeGame() {
-        grid = new char[GRID_SIZE][GRID_SIZE];
-        
+        int GRID_SIZE = 6;
+        char[][] grid = new char[GRID_SIZE][GRID_SIZE];
         // method to input spaces(path) into grid array
         HashMap<Integer, int[]> mazes = new HashMap();
         int[] p1 = { 1, 4, 2, 4, 2, 3, 2, 2, 3, 2, 4, 2, 4, 3, 5, 3, 6, 3 };
@@ -733,21 +731,18 @@ public class PuzzleStarters {
 
         // randomize the maze
         int mazeNum = 1 + (int) (Math.random() * (((mazes.size() - 1) - 1) + 1));
-        makeMaze(mazes.get(mazeNum));
         Knight user = new Knight(mazes.get(mazeNum));
-        printMaze(user);
-
         boolean clear = false;
         char dir = ' ';
         while (true) {
-            makeMaze(mazes.get(mazeNum));
-            printMaze(user);
+            makeMaze(mazes.get(mazeNum), user, grid);
             while (true) {
                 // stuff about the game
                 System.out.println("Enter which direction you would like to go");
-                dir = scan.nextLine().charAt(0);
+                String tempD = scan.nextLine();
+                dir = tempD.charAt(0);
                 clear = user.move(dir, grid);
-                if(clear){
+                if (clear) {
                     break;
                 }
             }
@@ -768,33 +763,31 @@ public class PuzzleStarters {
 
     }
 
-    public static void makeMaze(int[] path) {
+    public static void makeMaze(int[] path, Knight user, char[][] grid) {
         // while (!path.isEmpty()) {
         // grid[path.poll() - 1][path.poll() - 1] = ' ';
         // }
-         for (int i = 0; i < GRID_SIZE; i++) {
-            for (int j = 0; j < GRID_SIZE; j++) {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid.length; j++) {
                 grid[i][j] = 'o';
             }
         }
-        
+
         for (int i = 1; i < path.length; i += 2) {
             grid[path[i - 1] - 1][path[i]] = ' ';
         }
 
-        grid[path[path.length - 2]-1][path[path.length-1]] = 'C';
+        grid[path[path.length - 2] - 1][path[path.length - 1]] = 'C';
 
-    }
-
-    public static void printMaze(Knight user) {
         grid[user.x][user.y] = user.symbol;
         System.out.println();
-        for (int i = 0; i < GRID_SIZE; i++) {
-            for (int j = 0; j < GRID_SIZE; j++) {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid.length; j++) {
                 System.out.print(grid[i][j] + " ");
             }
             System.out.println();
         }
         System.out.println();
     }
+
 }
