@@ -1,5 +1,5 @@
 import java.util.*;
-public class Knight {
+ public class Knight {
     public int x;
     public int y;
     public char symbol;

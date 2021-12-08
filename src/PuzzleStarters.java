@@ -10,6 +10,8 @@ public class PuzzleStarters {
 
     // <Room, <HintNum, HintText>>
     // hint(puzzleName, hintNumber)
+    public static int GRID_SIZE = 6;
+    public static char[][] grid;
     public static int giveHint(String Room, int hintCnt) {
         switch (hintCnt) {
             case 3: {
@@ -65,7 +67,7 @@ public class PuzzleStarters {
         hn.close();
     }
 
-    static final Scanner scan = new Scanner(System.in);
+    public static final Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) {
         // fluffy introductions
@@ -102,7 +104,8 @@ public class PuzzleStarters {
         // recRoom(number, hintCnt);
         // library_morse(hintCnt);
         // library_books(hintCnt);
-        gameRoom(hintCnt);
+        // gameRoom(hintCnt);
+        mazeGame();
     }
 
     public static void gameRoom(int hintCnt) {
@@ -665,4 +668,81 @@ public class PuzzleStarters {
         }
         tnt.close();
     }
+
+     
+
+    public static void mazeGame(){
+        grid = new char[GRID_SIZE][GRID_SIZE];
+        for (int i = 0; i < GRID_SIZE; i++) {
+            for (int j = 0; j < GRID_SIZE; j++) {
+                grid[i][j] = 'o';
+            }
+        }
+        // method to input spaces(path) into grid array
+        HashMap<Integer, int[]> mazes = new HashMap();
+        int[] p1 = { 1, 4, 2, 4, 2, 3, 2, 2, 3, 2, 4, 2, 4, 3, 5, 3, 6, 3 };
+        mazes.put(1, p1);
+        // p1 = {};
+        // mazes.put(2, p1);
+        // p1 = {};
+        // mazes.put(3, p1);
+        // p1 = {};
+        // mazes.put(4, p1);
+
+        // randomize the maze
+        int mazeNum = 1 + (int) (Math.random() * (((mazes.size() - 1) - 1) + 1));
+        makeMaze(mazes.get(mazeNum));
+        Knight user = new Knight(mazes.get(mazeNum));
+        printMaze(user);
+
+        boolean clear = false;
+        char dir = ' '; 
+        while(true){
+            while(!clear){
+                //stuff about the game
+                System.out.println("Enter which direction you would like to go");
+                dir = scan.nextLine().charAt(0);
+                clear = user.move(dir, grid);
+            }
+            if(grid[user.x][user.y] == 'C'){
+                System.out.println("You made it to the castle!!");
+                System.out.println("You've earned a coin.");
+                File coinByte = new File("src/coin.wav");
+                play(3, coinByte);
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+       
+        // printing out the maze
+
+    }
+
+    public static void makeMaze(int[] path) {
+        // while (!path.isEmpty()) {
+        // grid[path.poll() - 1][path.poll() - 1] = ' ';
+        // }
+        for (int i = 1; i < path.length; i += 2) {
+            grid[path[i - 1] - 1][path[i]] = ' ';
+        }
+
+        grid[path[path.length-1]][path[path.length]] = 'F';
+
+    }
+
+    public static void printMaze(Knight user) {
+        grid[user.x][user.y] = user.symbol;
+        System.out.println();
+        for (int i = 0; i < GRID_SIZE; i++) {
+            for (int j = 0; j < GRID_SIZE; j++) {
+                System.out.print(grid[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+}
 }
