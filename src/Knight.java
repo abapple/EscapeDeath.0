@@ -12,7 +12,7 @@ import java.util.*;
         int temX;
         int temY;
         switch(dir){
-            case 'u':{
+            case 'd':{
                 temX = x+1;
                 if(grid[temX][y] == 'o'){
                     System.out.println("That is a wall, cannot go there.");
@@ -22,7 +22,7 @@ import java.util.*;
                 }
                 break;
             }
-            case 'd':{
+            case 'u':{
                 temX = x-1;
                 if(grid[temX][y] == 'o'){
                     System.out.println("That is a wall, cannot go there.");
@@ -33,7 +33,7 @@ import java.util.*;
                 break;
             }
             case 'l':{
-                temY = y+1;
+                temY = y-1;
                 if(grid[x][temY] == 'o'){
                     System.out.println("That is a wall, cannot go there.");
                     return false;
@@ -57,6 +57,6 @@ import java.util.*;
                 return false;
             }
         }
-        return false;
+        return true;
     }
 }

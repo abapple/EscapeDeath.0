@@ -10,6 +10,7 @@ public class PuzzleStarters {
     // hint(puzzleName, hintNumber)
     public static int GRID_SIZE = 6;
     public static char[][] grid;
+
     public static int giveHint(String Room, int hintCnt) {
         switch (hintCnt) {
             case 3: {
@@ -70,40 +71,91 @@ public class PuzzleStarters {
     public static void main(String[] args) {
         // fluffy introductions
         readInHints();
-        System.out.println(
-                "As you are walking home one evening," + "\nyou decide to take a short cut through the woods."
-                        + "\nHowever, the farther you enter the more it seems unfamiliar to you."
-                        + "\nSuddenly, you hear a second set of footsteps from behind you. Then a third."
-                        + "\nFear fuels you as you begin to run deeper into the unknown."
-                        + "\nBut alas - you trip on an invisible branch and tumble to the ground."
-                        + "\nPain fills your mind as darkness clouds your vision,"
-                        + "\nand as your consiousness fades all that you recall is weird laughter...");
-
-        System.out.println("" + " -----------------------------------------------------------------------------------"
-                + "\n -----------------------------------------------------------------------------------"
-                + "\nWhen your eyes open back up, you see two figures looking down at you."
-                + "\nYou look see through them and see a sprawling, definitely haunted mansion named "
-                + "\n'The Midnight Manor'"
-                + "\nWait, see through them?! 'What? Never seen a ghost before,' the one on the right smirked."
-                + "\nThe one on the left continued,'Well, guess you can say you've met two now."
-                + "\nAnyway, we're bored so you're gonna play these games at our house "
-                + "\nor else you'll die or whatever.'"
-                + "\nStill in disbelief, you try to back away "
-                + "\nbut they grab both your arms and drag you to the entrance. "
-                + "\n'Find your way out!' They gleefully say in chorus as they push you through the door,"
-                + "\n'Or stay here and become a ghost, lol. Have fun :)'"
-                + "\nThe door shuts behind you and disappears."
-                + "\nYou find yourself in a hallway that seems to stretch endlessly in both directions.");
+        // System.out.println(
+        //         "As you are walking home one evening," + "\nyou decide to take a short cut through the woods."
+        //                 + "\nHowever, the farther you enter the more it seems unfamiliar to you."
+        //                 + "\nSuddenly, you hear a second set of footsteps from behind you. Then a third."
+        //                 + "\nFear fuels you as you begin to run deeper into the unknown."
+        //                 + "\nBut alas - you trip on an invisible branch and tumble to the ground."
+        //                 + "\nPain fills your mind as darkness clouds your vision,"
+        //                 + "\nand as your consiousness fades all that you recall is weird laughter...");
+        // final File atmosByte = new File("Game_Sounds/Outdoor_Ambiance.wav");
+        // play(0, atmosByte);
+        // try {
+        //     Thread.sleep(9000);
+        // } catch (InterruptedException e) {
+        //     e.printStackTrace();
+        // }
+        // footSteps();
+        // final File laughByte = new File("Game_Sounds/zapsplat_horror_evil_demonic_laugh_001_12149.wav");
+        // play(2, laughByte);
+        // try {
+        //     Thread.sleep(3000);
+        // } catch (InterruptedException e) {
+        //     e.printStackTrace();
+        // }
+        // System.out.println("" + " -----------------------------------------------------------------------------------"
+        //         + "\n -----------------------------------------------------------------------------------"
+        //         + "\nWhen your eyes open back up, you see two figures looking down at you."
+        //         + "\nYou look see through them and see a sprawling, definitely haunted mansion named "
+        //         + "\n'The Midnight Manor'"
+        //         + "\nWait, see through them?! 'What? Never seen a ghost before,' the one on the right smirked."
+        //         + "\nThe one on the left continued,'Well, guess you can say you've met two now."
+        //         + "\nAnyway, we're bored so you're gonna play these games at our house "
+        //         + "\nor else you'll die or whatever.'"
+        //         + "\nStill in disbelief, you try to back away "
+        //         + "\nbut they grab both your arms and drag you to the entrance. "
+        //         + "\n'Find your way out!' They gleefully say in chorus as they push you through the door,"
+        //         + "\n'Or stay here and become a ghost, lol. Have fun :)'"
+        //         + "\nThe door shuts behind you and disappears."
+        //         + "\nYou find yourself in a hallway that seems to stretch endlessly in both directions.");
         int hintCnt = 3;
         int number = 1 + (int) (Math.random() * ((20 - 1) + 1));
         if (number == 10) {
             number = 15;
         }
-        // recRoom(number, hintCnt);
-        // library_morse(hintCnt);
-        // library_books(hintCnt);
-        // gameRoom(hintCnt);
+        recRoom(number, hintCnt);
+        library_morse(hintCnt);
+        library_books(hintCnt);
+        gameRoom(hintCnt);
         mazeGame();
+    }
+    public static void footSteps(){
+        File stepByte1 = null;
+        File stepByte2 = null;
+        File stepByte3 = null;
+        File stepByte4 = null;
+        for(int f = 0; f < 8; f++)
+        {
+        stepByte1 = new File("Game_Sounds/Corsica_S-Walking_on_snow_covered_gravel_01.flac");
+        play(0, stepByte1);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        stepByte2 = new File("Game_Sounds/Corsica_S-Walking_on_snow_covered_gravel_06.flac");
+        play(1, stepByte2);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        stepByte3 = new File("Game_Sounds/Corsica_S-Walking_on_snow_covered_gravel_03.flac");
+        play(5, stepByte3);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        stepByte4 = new File("Game_Sounds/Corsica_S-Walking_on_snow_covered_gravel_07.flac");
+        play(2, stepByte4);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     }
 
     public static void gameRoom(int hintCnt) {
@@ -134,7 +186,7 @@ public class PuzzleStarters {
             } else if (userInput.equalsIgnoreCase("SM")) {
                 if (coins >= 3) {
                     coins = slotMachine(hintCnt, coins, probability);
-                    if(probability>=6){
+                    if (probability >= 6) {
                         break;
                     }
                     probability++;
@@ -147,9 +199,8 @@ public class PuzzleStarters {
 
             }
         }
-        //go onto next part of game. 
+        // go onto next part of game.
 
-        
     }
 
     public static int cupGame() {
@@ -170,7 +221,7 @@ public class PuzzleStarters {
 
             if (guess == smallBall) {
                 System.out.println("The ball is here! You found it :) Here is your reward.");
-                File coinByte = new File("src/coin.wav");
+                File coinByte = new File("Game_Sounds/coin.wav");
                 play(3, coinByte);
                 try {
                     Thread.sleep(3000);
@@ -245,18 +296,18 @@ public class PuzzleStarters {
                 cnt++;
             }
         }
-        while(cnt>0){
+        while (cnt > 0) {
             value = 0;
             cnt--;
-            if ((total + 11+ cnt) <= 21) {
-                value=11;
-                acesT+=11;
+            if ((total + 11 + cnt) <= 21) {
+                value = 11;
+                acesT += 11;
             } else {
-                value=1;
-                acesT+=1;
+                value = 1;
+                acesT += 1;
 
             }
-            total+=value;
+            total += value;
         }
 
         return acesT;
@@ -266,7 +317,7 @@ public class PuzzleStarters {
     public static int blackJack() {
         int pTotal = 0;
         int dTotal = 0;
-         int coins = 0;
+        int coins = 0;
         Stack<String> Uhand = new Stack<>();
         Stack<String> Dhand = new Stack<>();
         Stack<String> comboHand = new Stack<>();
@@ -276,7 +327,7 @@ public class PuzzleStarters {
             dTotal += dealCard(Dhand, comboHand);
         }
         // Users turn
-        int pATotal=0;
+        int pATotal = 0;
         System.out.println("The dealer has " + Dhand.peek() + " facing up.");
         while (true) {
             System.out.println("You have : " + Uhand.toString());
@@ -324,12 +375,12 @@ public class PuzzleStarters {
             dATotal = 0;
             System.out.println("The dealer has " + Dhand.toString());
             dATotal += AceCard(dTotal, Dhand);
-                System.out.println("His total is " + (dTotal + dATotal));
+            System.out.println("His total is " + (dTotal + dATotal));
 
-            if (pTotal + pATotal == -1 || (dTotal + dATotal > pTotal+ pATotal && dTotal + dATotal <= 21)) {
+            if (pTotal + pATotal == -1 || (dTotal + dATotal > pTotal + pATotal && dTotal + dATotal <= 21)) {
                 System.out.println("You lose.");
                 dealer = false;
-            } else if ((dTotal + dATotal <= pTotal+ pATotal) && (dTotal + dATotal <21)) {
+            } else if ((dTotal + dATotal <= pTotal + pATotal) && (dTotal + dATotal < 21)) {
                 System.out.println("He hits.");
                 dTotal += dealCard(Dhand, comboHand);
                 // dATotal = 0;
@@ -340,7 +391,7 @@ public class PuzzleStarters {
                 if (pTotal <= 21) {
                     System.out.println("You win! Heres a coin.");
                     coins += 1;
-                    File coinByte = new File("src/coin.wav");
+                    File coinByte = new File("Game_Sounds/coin.wav");
                     play(3, coinByte);
                     try {
                         Thread.sleep(3000);
@@ -357,11 +408,6 @@ public class PuzzleStarters {
         Uhand.clear();
         Dhand.clear();
         return coins;
-    }
-
-    public static int mysteryGame(int hintCnt, int coins) {
-        // the answer will have to be related to the theme
-        return 0;
     }
 
     public static int slotMachine(int hintCnt, int coins, int prob) {
@@ -398,7 +444,7 @@ public class PuzzleStarters {
                 // spoopy
             } else {
                 System.out.println("Better luck next time. ");
-                if(coins<=0){
+                if (coins <= 0) {
                     break;
                 }
                 while (true) {
@@ -431,8 +477,10 @@ public class PuzzleStarters {
     public static void library_morse(int hintCnt) {
         System.out.println("You see a dusty record player on a table in the middle of the room. "
                 + "\nAs you approach, it begins to play an odd series of beeps and blips...\n");
-        File morseByte = new File("src/morse.wav");
-        play(5, morseByte);
+        final File file = new File("Morse_Code");
+        for (final File child : file.listFiles()) {
+            play(2, child);
+        }
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -456,7 +504,9 @@ public class PuzzleStarters {
                 System.out.println("Not an option");
             }
             if (input.equalsIgnoreCase("p")) {
-                play(1, morseByte);
+                for (final File child : file.listFiles()) {
+                    play(2, child);
+                }
             } else if (input.equalsIgnoreCase("hint")) {
                 hintCnt = giveHint("Morse", hintCnt);
                 System.out.println("Are you dumb?");
@@ -667,15 +717,9 @@ public class PuzzleStarters {
         tnt.close();
     }
 
-     
-
-    public static int mazeGame(){
+    public static int mazeGame() {
         grid = new char[GRID_SIZE][GRID_SIZE];
-        for (int i = 0; i < GRID_SIZE; i++) {
-            for (int j = 0; j < GRID_SIZE; j++) {
-                grid[i][j] = 'o';
-            }
-        }
+        
         // method to input spaces(path) into grid array
         HashMap<Integer, int[]> mazes = new HashMap();
         int[] p1 = { 1, 4, 2, 4, 2, 3, 2, 2, 3, 2, 4, 2, 4, 3, 5, 3, 6, 3 };
@@ -694,15 +738,20 @@ public class PuzzleStarters {
         printMaze(user);
 
         boolean clear = false;
-        char dir = ' '; 
-        while(true){
-            while(!clear){
-                //stuff about the game
+        char dir = ' ';
+        while (true) {
+            makeMaze(mazes.get(mazeNum));
+            printMaze(user);
+            while (true) {
+                // stuff about the game
                 System.out.println("Enter which direction you would like to go");
                 dir = scan.nextLine().charAt(0);
                 clear = user.move(dir, grid);
+                if(clear){
+                    break;
+                }
             }
-            if(grid[user.x][user.y] == 'C'){
+            if (grid[user.x][user.y] == 'C') {
                 System.out.println("You made it to the castle!!");
                 System.out.println("You've earned a coin.");
                 File coinByte = new File("src/coin.wav");
@@ -715,8 +764,7 @@ public class PuzzleStarters {
                 break;
             }
         }
-       return 0;
-        // printing out the maze
+        return 1;
 
     }
 
@@ -724,11 +772,17 @@ public class PuzzleStarters {
         // while (!path.isEmpty()) {
         // grid[path.poll() - 1][path.poll() - 1] = ' ';
         // }
+         for (int i = 0; i < GRID_SIZE; i++) {
+            for (int j = 0; j < GRID_SIZE; j++) {
+                grid[i][j] = 'o';
+            }
+        }
+        
         for (int i = 1; i < path.length; i += 2) {
             grid[path[i - 1] - 1][path[i]] = ' ';
         }
 
-        grid[path[path.length-1]][path[path.length]] = 'F';
+        grid[path[path.length - 2]-1][path[path.length-1]] = 'C';
 
     }
 
@@ -742,5 +796,5 @@ public class PuzzleStarters {
             System.out.println();
         }
         System.out.println();
-}
+    }
 }
