@@ -34,12 +34,3 @@ Casino
 ***The easiest game is the Cup Game - just pump it for coins, lol.
 0
 ** You are out of hints for this room **
-MysteryGame
-3
-* 
-2
-** 
-1
-*** 
-0
-** You are out of hints for this room **
