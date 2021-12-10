@@ -142,7 +142,6 @@ public class MainPlay {
             // Stops the audio from playing after a specified time (d2)
             if (p == 'P') {
                 Thread.sleep(d2);
-                long currentFrame = 0L;
                 clip.stop();
                 clip.close();
             }
@@ -220,13 +219,11 @@ public class MainPlay {
             number = 15;
         }
         // Gameplay rooms
-        while (true) {
-            introToGame();
-            recRoom(number, hintCnt);
-            library_morse(hintCnt);
-            library_books(hintCnt);
-            gameRoom(hintCnt);
-        }
+        introToGame();
+        recRoom(number, hintCnt);
+        library_morse(hintCnt);
+        library_books(hintCnt);
+        gameRoom(hintCnt);
     }
 
     /**
@@ -787,11 +784,11 @@ public class MainPlay {
         Stack<String> Dhand = new Stack<>();
         Stack<String> comboHand = new Stack<>();
         System.out.println("\nWelcome to Black Jack, a card game only involving math. "
-                + "\n In this version, you and your \"Dealer\" receive 2 cards. "
-                + "\n Each card holds a different number value. Face cards are 10, numbers equal their number value and..."
-                + "\n Ace cards can be tricky. They are valued at 11 or 1 depending on how you play them."
-                + "\n Your goal is to get as close to 21 as you can with your given cards, but don't get greedy..."
-                + "\n Good luck gambling!");
+                + "\nIn this version, you and your \"Dealer\" receive 2 cards. "
+                + "\nEach card holds a different number value. Face cards are 10, numbers equal their number value and..."
+                + "\nAce cards can be tricky. They are valued at 11 or 1 depending on how you play them."
+                + "\nYour goal is to get as close to 21 as you can with your given cards, but don't get greedy..."
+                + "\nGood luck gambling!");
         System.out.println("\nThe cards flit about in the air and the hands are dealt out.");
         // Deal two cards to each player
         for (int i = 0; i < 2; i++) {
@@ -934,9 +931,9 @@ public class MainPlay {
         int slot1;
         int slot2;
         int slot3;
-        System.out.println("\n Time to gamble your life away at the slot machine. Literally."
-                + "\n Enter a coin into the machine, and pull the lever to test your luck."
-                + "\n Hopefully you can reach three lucky 7's in one pull... your life depends on it.");
+        System.out.println("\nTime to gamble your life away at the slot machine. Literally."
+                + "\nEnter a coin into the machine, and pull the lever to test your luck."
+                + "\nHopefully you can reach three lucky 7's in one pull... your life depends on it.");
         // User can play until out of coins
         while (coins > 0) {
             // Initally randomize all slots
@@ -1047,11 +1044,11 @@ public class MainPlay {
      */
     public static int mazeGame() {
 
-        System.out.println("\n You approach a table at the center of the room."
-                + "\n Upon the table there appears to be a chess board with only one piece..."
-                + "\n A valiant knight stands at one end of the board, to which you realize isn't a chess board at all."
-                + "\n Instead, the white squares on the board form a path to a castle at the other end."
-                + "\n Guide the knight through the maze to go save the princess from the #/&!'@*& !!!! ");
+        System.out.println("\nYou approach a table at the center of the room."
+                + "\nUpon the table there appears to be a chess board with only one piece..."
+                + "\nA valiant knight stands at one end of the board, to which you realize isn't a chess board at all."
+                + "\nInstead, the white squares on the board form a path to a castle at the other end."
+                + "\nGuide the knight through the maze to go save the princess from the #/&!'@*& !!!! ");
 
         int GRID_SIZE = 7;
         char[][] grid = new char[GRID_SIZE][GRID_SIZE];
@@ -1140,12 +1137,17 @@ public class MainPlay {
      * .....or is it?
      */
     public static void theEndGame() {
+        System.out.println(" " + "-----------------------------------------------------------------------------------"
+        + "\n -----------------------------------------------------------------------------------");
+
         System.out.println(
                 "With key in hand, you stand up from the pile of coins and hear the sounds of two voices bickering back and forth in the distance."
-                        + "\nI said we should not have given them hints! Said the one on the right indignantly."
-                        + "\nWe can only be fair - it’s not like it has changed anything really. Countered the one on the left."
-                        + "\nShhh shhh… Hey, how’s it going? The one on the right hurriedly quiets their companion and looks towards you."
+                        + "\n'I said we should not have given them hints!' said the one on the right indignantly."
+                        + "\n'We can only be fair - it's not like it has changed anything really.' Countered the one on the left."
+                        + "\n'Shhh shhh… Hey, how's it going?' The one on the right hurriedly quiets their companion and looks towards you."
                         + "\nYou find yourself once again faced before your kidnappers."
+                        + "\n " + "-----------------------------------------------------------------------------------"
+                        + "\n -----------------------------------------------------------------------------------"
                         + "\nThe one on the left goes to begin speaking when you dart through them and run to find an exit."
                         + "\nWhy would you wait to talk to them - they are just trying to stall you from being able to escape!"
                         + "\nYou see a door on the far side of the room with a keyhole at the center."
@@ -1153,6 +1155,12 @@ public class MainPlay {
                         + "\nYou burst into a new space and slam the door behind yourself. But as you get your bearings, "
                         + "\nyou see written on the wall in front of you \"Neverending Mystery Escape Game\" and darkness fills the space as you drop to your knees in defeat."
                         + "\nYou open your eyes and...");
+        // Delays the call back to main
+        try {
+            Thread.sleep(35000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // You are returned to the beginning of the program
         main(null);
     }
@@ -1194,6 +1202,12 @@ public class MainPlay {
         }
         System.out.println("Your soul has been claimed by Satan for getting the forbidden number while gambling"
                 + "\n - you can no longer play the game.");
+        // Delays end of game
+        try {
+            Thread.sleep(8000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // Game over :(
         System.exit(0);
     }
