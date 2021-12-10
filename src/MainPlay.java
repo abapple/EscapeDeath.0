@@ -11,7 +11,7 @@ import javax.sound.sampled.AudioInputStream;
  * @author Jamie Conlin
  */
 
-public class PuzzleStarters {
+public class MainPlay {
     public static HashMap<String, HashMap<Integer, String>> hints = new HashMap<>();
     public static final Scanner scan = new Scanner(System.in);
 
