@@ -3,6 +3,14 @@ import java.util.*;
 import javax.sound.sampled.*;
 import javax.sound.sampled.AudioInputStream;
 
+/**
+ * Escap Death : Midnight Manor
+ * Latest Update December 10, 2021
+ * 
+ * @author Abby Bock
+ * @author Jamie Conlin
+ */
+
 public class PuzzleStarters {
     public static HashMap<String, HashMap<Integer, String>> hints = new HashMap<>();
     public static final Scanner scan = new Scanner(System.in);
@@ -155,7 +163,7 @@ public class PuzzleStarters {
                 + "\nBut alas - you trip on an invisible branch and tumble to the ground."
                 + "\nPain fills your mind as darkness clouds your vision,"
                 + "\nand as your consiousness fades all that you recall is weird laughter...");
-        //play the intro sounds
+        // play the intro sounds
         final File atmosByte = new File("Game_Sounds/Outdoor_Ambiance.wav");
         playLongAssSound(0, atmosByte, 'P', 10000);
         try {
@@ -186,7 +194,8 @@ public class PuzzleStarters {
                 + "\n'Or stay here and become a ghost, lol. Have fun :)'"
                 + "\n\nThe door shuts behind you and disappears."
                 + "\nYou find yourself in a hallway that seems to stretch endlessly in both directions.");
-        final File doorShutByte = new File("Game_Sounds/skyes_audio_Door_Abandoned_House_Old_Large_Gate_Metal_Lock_Slam_002.wav");
+        final File doorShutByte = new File(
+                "Game_Sounds/skyes_audio_Door_Abandoned_House_Old_Large_Gate_Metal_Lock_Slam_002.wav");
         playLongAssSound(35, doorShutByte, 'P', 4000);
         try {
             Thread.sleep(3000);
@@ -195,7 +204,7 @@ public class PuzzleStarters {
         }
 
         int hintCnt = 3;
-        //random number for first game. number cannot equal 10
+        // random number for first game. number cannot equal 10
         int number = 1 + (int) (Math.random() * ((20 - 1) + 1));
         if (number == 10) {
             number = 15;
