@@ -20,9 +20,9 @@ Books
 3
 *You are trying to make a word out of the order of the books.
 2
-**Maybe try looking at the authors’ names?
+**Maybe try looking at the author's names?
 1
-***Look at the first letter of each author’s name - the first book in the order is The Great Mouse Detective
+***Look at the first letter of each author's name - the first book in the order is The Great Mouse Detective
 0
 ** You are out of hints for this room **
 Casino

@@ -585,7 +585,7 @@ public class MainPlay {
                 if (coins >= 3) {
                     coins = slotMachine(coins, probability);
                     // When probability >=4, guaranteed jackpot and win game
-                    if (probability >= 4) {
+                    if (probability >= 3) {
                         break;
                     }
                     probability++;
@@ -627,10 +627,11 @@ public class MainPlay {
             }
             // Randomly generate number 1-4
             int smallBall = 1 + (int) (Math.random() * ((4 - 1) + 1));
+            String gu = scan.next();
             int guess = 0;
             // Check for readable int
             try {
-                guess = scan.nextInt();
+                guess = Integer.parseInt(gu);
             } catch (Exception e) {
                 System.out.println("Not an option");
             }
@@ -873,6 +874,10 @@ public class MainPlay {
             System.out.println("The dealer has " + Dhand.toString());
             dATotal += AceCard(dTotal, Dhand);
             int dValue = dATotal + dTotal;
+            if(dValue == 21){
+                System.out.println("You lose. ");
+                break;
+            }
             if (pValue == -1 || ((dValue > pValue) && (dValue <= 21))) {
                 // If user busted OR the dealer has greater value than user without busting
                 System.out.println("You lose.");
@@ -949,7 +954,7 @@ public class MainPlay {
             if (prob >= 2) {
                 slot3 = 7;
             }
-            if (prob >= 4) {
+            if (prob >= 3) {
                 slot2 = 7;
             }
             // Plays slot noise as slots' visual loads
