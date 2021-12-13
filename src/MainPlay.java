@@ -936,6 +936,7 @@ public class MainPlay {
         int slot1;
         int slot2;
         int slot3;
+        boolean die = false;
         System.out.println("\nTime to gamble your life away at the slot machine. Literally."
                 + "\nEnter a coin into the machine, and pull the lever to test your luck."
                 + "\nHopefully you can reach three lucky 7's in one pull... your life depends on it.");
@@ -956,6 +957,11 @@ public class MainPlay {
             }
             if (prob >= 3) {
                 slot2 = 7;
+            }
+            if(die){
+                slot1 = 6;
+                slot2 = 6;
+                slot3 = 6;
             }
             // Plays slot noise as slots' visual loads
             File slotByte = new File("Game_Sounds/Blastwave_FX_SlotMachineInsert_SFXB.3999.wav");
@@ -1020,6 +1026,11 @@ public class MainPlay {
                     if (in.equalsIgnoreCase("cheat")) {
                         // Cheat allows instant win
                         prob = 4;
+                        break;
+                    }
+                    if(in.equalsIgnoreCase("secret")){
+                        //instant 'true' ending 
+                        die = true;
                         break;
                     }
                     if (in.equalsIgnoreCase("n")) {
