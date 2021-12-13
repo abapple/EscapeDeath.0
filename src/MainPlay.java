@@ -627,9 +627,14 @@ public class MainPlay {
             }
             // Randomly generate number 1-4
             int smallBall = 1 + (int) (Math.random() * ((4 - 1) + 1));
-            String gu = scan.next();
+            String gu = " ";
             int guess = 0;
             // Check for readable int
+            try {
+                gu = scan.next();
+            } catch (Exception e) {
+                System.out.println("Not an option");
+            }
             try {
                 guess = Integer.parseInt(gu);
             } catch (Exception e) {
